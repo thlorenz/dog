@@ -1,0 +1,25 @@
+{
+  "name": "blog",
+  "version": "0.0.0",
+  "description": "Markdown based blog for thlorenz.com along with conversion library and post creation utilities.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thlorenz/blog.git"
+  },
+  "keywords": [
+    "markdown",
+    "blog",
+    "highlight"
+  ],
+  "author": "Thorsten Lorenz <thlorenz@gmx.de> (http://thorstenlorenz/wordpress.com)",
+  "license": "BSD",
+  "dependencies": {
+    "npmlog": "0.0.2",
+    "marked": "~0.2.5",
+    "node-syntaxhighlighter": "~0.8.1"
+  }
+}
