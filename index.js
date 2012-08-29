@@ -1,41 +1,42 @@
-var fs = require('fs')
-  , path = require('path')
-  , marked = require('marked')
-  , nhs = require('node-syntaxhighlighter')
-  , log = require('npmlog')
-  , utl = require('./utl')
+var fs     =  require('fs')
+  , path   =  require('path')
+  , marked =  require('marked')
+  , nhs    =  require('node-syntaxhighlighter')
+  , log    =  require('npmlog')
+  , utl    =  require('./utl')
   ;
   
 marked.setOptions({
-  gfm: true,
-  pedantic: false,
-  sanitize: true,
-  highlight: function(code, lang) {
+  gfm       :  true,
+  pedantic  :  false,
+  sanitize  :  true,
+  highlight :  function(code, lang) {
     var language = nhs.getLanguage(lang);
     return language ? nhs.highlight(code, language) : code;
   }
 });
 
+function readSnippets(snippetsDir, files, cb) {
+  var tasks    =  files.length
+    , snippets =  [];
+
+  if (!tasks) { cb(null, snippets); return; }
+
+  files.forEach(function (file) {
+    var fullSnippetPath = path.join(snippetsDir, file);
+
+    fs.readFile(fullSnippetPath, 'utf-8', function (err, data) {
+      if (err) { cb(err); return; }
+
+      snippets.push({ name: file, content: data });
+
+      if (! --tasks) cb(null, snippets);
+    });
+  });
+}
+
 function collectSnippets(blogdir, collected) {
   var snippetsDir = path.join(blogdir, 'snippets');
-
-  function readSnippets(files, cb) {
-    var tasks = files.length
-      , snippets = [];
-
-    if (!tasks) { cb(null, snippets); return; }
-
-    files.forEach(function (file) {
-      var fullSnippetPath = path.join(snippetsDir, file);
-
-      fs.readFile(fullSnippetPath, 'utf-8', function (err, data) {
-        if (err) { cb(err); return; }
-
-        snippets.push({ name: file, content: data });
-        if (! --tasks) cb(null, snippets);
-      });
-    });
-  }
 
   fs.exists(snippetsDir, function (exists) {
     if(!exists) { collected(null, []); return; }
@@ -43,7 +44,7 @@ function collectSnippets(blogdir, collected) {
     fs.readdir(snippetsDir, function (err, files) {
       if (err) { collected(err); return; }
 
-      readSnippets(files, collected);
+      readSnippets(snippetsDir, files, collected);
     });
   });
 }
@@ -55,13 +56,14 @@ function insertSnippets(blogdir, md, inserted) {
     if (!snippets.length) { inserted(null, md); return; }
 
     snippets.forEach(function (snippet) {
-      var detectedLang = nhs.getLanguage(path.extname(snippet.name))
-        , snippetLang = detectedLang ? detectedLang.Brush.aliases[0] : ''
-        , regex = new RegExp('{{ +snippet: +' + utl.regexEscape(snippet.name) + ' +}}', 'gi')
-        , replacement = [ '```' + snippetLang
-                        , snippet.content
-                        , '````'
-                        ].join('\n');
+      var detectedLang =  nhs.getLanguage(path.extname(snippet.name))
+        , snippetLang  =  detectedLang ? detectedLang.Brush.aliases[0] : ''
+        , regex        =  new RegExp('{{ +snippet: +' + utl.regexEscape(snippet.name) + ' +}}', 'gi')
+        , replacement  =  [ '```' + snippetLang
+                          , snippet.content
+                          , '````'
+                          ].join('\n');
+
       md = md.replace(regex, replacement);
     });
 
