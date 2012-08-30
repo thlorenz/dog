@@ -35,6 +35,10 @@ describe('when rendering bloguno that has an inlined and an external snippet', f
   it('contains external snippet', function () {
     result.should.include('<code class="keyword">var</code> <code class="plain">simple = 1;</code>');
   })
+
+  it('wraps it in blog-entry article', function () {
+    result.should.include('<article class="blog-entry"');  
+  })
 })
 
 
