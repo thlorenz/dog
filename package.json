@@ -23,6 +23,7 @@
     "node-syntaxhighlighter": "~0.8.1"
   },
   "devDependencies": {
-    "should": "~1.1.0"
+    "should": "~1.1.0",
+    "mocha": "~1.4.1"
   }
 }
