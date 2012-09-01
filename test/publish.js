@@ -12,43 +12,43 @@ var should = require('should')
   , log
   , error
   , opts
-  , blogname
-  , blogdir
+  , postname
+  , postdir
+  , postJsonFile
   , blogJsonFile
-  , blogindexJsonFile
-  , blogdirExists
+  , postdirExists
+  , postJsonFileExists
   , blogJsonFileExists
-  , blogindexJsonFileExists
   , now 
   , publish
   , written
   ;
 
-describe('blog publishing', function () {
+describe('post publishing', function () {
   beforeEach(function () {
-    opts = { title: 'My Example Blog', tags: [ 'javascript', 'testing' ] }
+    opts = { title: 'My Example Post', tags: [ 'javascript', 'testing' ] }
 
-    error                   =  null;
-    blogname                =  'blogname'
-    blogdir                 =  path.join('blog', blogname);
-    blogJsonFile            =  path.join(blogdir, 'post.json');
-    blogindexJsonFile       =  path.join(blogdir, '..', 'blog.json');
-    blogdirExists           =  true;
-    blogJsonFileExists      =  false;
-    blogindexJsonFileExists =  false;
-    now                     =  new Date(2012, 0, 1)
-    written                 =  {}
+    error              =  null;
+    postname           =  'postname'
+    postdir            =  path.join('blog', postname);
+    postJsonFile       =  path.join(postdir, 'post.json');
+    blogJsonFile       =  path.join(postdir, '..', 'blog.json');
+    postdirExists      =  true;
+    postJsonFileExists =  false;
+    blogJsonFileExists =  false;
+    now                =  new Date(2012, 0, 1)
+    written            =  {}
 
     utl = {
         exists: function (entry, cb) { 
           switch(entry) {
-            case blogJsonFile      : cb(blogJsonFileExists)      ; break ;
-            case blogindexJsonFile : cb(blogindexJsonFileExists) ; break ;
-            case blogdir           : cb(blogdirExists)           ; break ;
+            case postJsonFile :  cb(postJsonFileExists) ; break ;
+            case blogJsonFile :  cb(blogJsonFileExists) ; break ;
+            case postdir      :  cb(postdirExists)      ; break ;
           }
         }
       , ensurePathExists: function (entry, cb) {
-          if (entry === blogdir && !blogdirExists) cb(new Error('not exists'));
+          if (entry === postdir && !postdirExists) cb(new Error('not exists'));
           else cb();
         }
       , now: function () { return now; }
@@ -76,11 +76,11 @@ describe('blog publishing', function () {
     });
   })
 
-  describe('when blog doesn\'t exist', function () {
+  describe('when post doesn\'t exist', function () {
     beforeEach(function () {
-      blogdirExists = false;
+      postdirExists = false;
 
-      publish(blogdir, opts, function (err) {
+      publish(postdir, opts, function (err) {
         error = err;  
       });
     })
@@ -90,87 +90,87 @@ describe('blog publishing', function () {
     })  
   })
 
-  describe('when blog wasn\'t published before', function () {
+  describe('when post wasn\'t published before', function () {
     var meta, index, firstNow;
     beforeEach(function () {
-      publish(blogdir, opts, function () { });
-      meta = written[blogJsonFile];
-      index = written[blogindexJsonFile];
+      publish(postdir, opts, function () { });
+      meta = written[postJsonFile];
+      index = written[blogJsonFile];
     })
 
-    it('adds name to blog metadata', function () {
-      meta.name.should.eql(blogname);
+    it('adds name to post metadata', function () {
+      meta.name.should.eql(postname);
     })
 
-    it('adds title to blog metadata', function () {
+    it('adds title to post metadata', function () {
      meta.title.should.eql(opts.title);
     })
 
-    it('adds created (now) to blog metadata', function () {
+    it('adds created (now) to post metadata', function () {
       meta.created.should.eql(jsonify(now));
     })
 
-    it('adds updated (now) to blog metadata', function () {
+    it('adds updated (now) to post metadata', function () {
       meta.updated.should.eql(jsonify(now));
     })
 
-    it('adds tags to blog metadata', function () {
+    it('adds tags to post metadata', function () {
      meta.tags.should.eql(opts.tags);
     })
 
-    it('adds blog to posts index', function () {
-      index.posts.should.include(blogname);
+    it('adds post to blogs', function () {
+      index.posts.should.include(postname);
     })
 
-    it('adds blog tags to blogs index tags', function () {
+    it('adds post tags to blog tags', function () {
       index.tags.should.eql(opts.tags);  
     })
 
-    describe('and I publish the same blog again in order to update it\'s title and add a tag', function () {
+    describe('and I publish the same post again in order to update it\'s title and add a tag', function () {
       var upmeta, upindex, upopts;
 
       beforeEach(function () {
         firstNow = now; 
         now = new Date(2012, 0, 2);
-        upopts = { title: 'new title', tags: ['javascript', 'testing', 'blog'] };
+        upopts = { title: 'new title', tags: ['javascript', 'testing', 'post'] };
 
+        postJsonFileExists = true;
         blogJsonFileExists = true;
-        blogindexJsonFileExists = true;
 
         fs.readFile= function (file, encoding, cb) {
           switch(file) {
-            case blogJsonFile      :  cb(null, JSON.stringify(meta))  ; break ;
-            case blogindexJsonFile :  cb(null, JSON.stringify(index)) ; break ;
+            case postJsonFile :  cb(null, JSON.stringify(meta))  ; break ;
+            case blogJsonFile :  cb(null, JSON.stringify(index)) ; break ;
           }
         }
 
-        publish(blogdir, upopts, function () { });
+        publish(postdir, upopts, function () { });
 
-        upmeta = written[blogJsonFile];
-        upindex = written[blogindexJsonFile];
+        upmeta = written[postJsonFile];
+        upindex = written[blogJsonFile];
       })
 
-      it('keeps name in blog metadata', function () {
-        upmeta.name.should.eql(blogname);
+      it('keeps name in post metadata', function () {
+        upmeta.name.should.eql(postname);
       })
 
-      it('updates new title in blog metadata', function () {
+      it('updates new title in post metadata', function () {
         upmeta.title.should.eql(upopts.title);
       })
 
-      it('keeps created (now at first publish) in blog metadata', function () {
+      it('keeps created (now at first publish) in post metadata', function () {
         upmeta.created.should.eql(jsonify(firstNow));
       })
 
-      it('updates updated (current now) to blog metadata', function () {
+      it('updates updated (current now) to post metadata', function () {
         upmeta.updated.should.eql(jsonify(now));
       })
 
-      it('adds tags to blog metadata', function () {
+      it('adds tags to post metadata', function () {
         upmeta.tags.should.eql(upopts.tags);
       })
 
-      it('updates blogs index tags', function () {
+      it('updates blog tags', function () {
         upindex.tags.should.eql(upopts.tags);
       })
     })
