@@ -12,6 +12,7 @@ var should = require('should')
   , log
   , error
   , opts
+  , blogname
   , blogdir
   , blogJsonFile
   , blogindexJsonFile
@@ -25,10 +26,11 @@ var should = require('should')
 
 describe('blog publishing', function () {
   beforeEach(function () {
-    opts = { name: 'blogname', title: 'My Example Blog', tags: [ 'javascript', 'testing' ] }
+    opts = { title: 'My Example Blog', tags: [ 'javascript', 'testing' ] }
 
     error                   =  null;
-    blogdir                 =  path.join('blog', opts.name);
+    blogname                =  'blogname'
+    blogdir                 =  path.join('blog', blogname);
     blogJsonFile            =  path.join(blogdir, 'blog.json');
     blogindexJsonFile       =  path.join(blogdir, '..', 'blogs.json');
     blogdirExists           =  true;
@@ -91,14 +93,13 @@ describe('blog publishing', function () {
   describe('when blog wasn\'t published before', function () {
     var meta, index, firstNow;
     beforeEach(function () {
-      firstNow = now; 
       publish(blogdir, opts, function () { });
       meta = written[blogJsonFile];
       index = written[blogindexJsonFile];
     })
 
     it('adds name to blog metadata', function () {
-      meta.name.should.eql(opts.name);
+      meta.name.should.eql(blogname);
     })
 
     it('adds title to blog metadata', function () {
@@ -118,7 +119,7 @@ describe('blog publishing', function () {
     })
 
     it('adds blog to blogs index', function () {
-      index.blogs.should.include(opts.name);
+      index.blogs.should.include(blogname);
     })
 
     it('adds blog tags to blogs index tags', function () {
@@ -129,8 +130,9 @@ describe('blog publishing', function () {
       var upmeta, upindex, upopts;
 
       beforeEach(function () {
+        firstNow = now; 
         now = new Date(2012, 0, 2);
-        upopts = { name: opts.name, title: 'new title', tags: ['javascript', 'testing', 'blog'] };
+        upopts = { title: 'new title', tags: ['javascript', 'testing', 'blog'] };
 
         blogJsonFileExists = true;
         blogindexJsonFileExists = true;
@@ -149,7 +151,7 @@ describe('blog publishing', function () {
       })
 
       it('keeps name in blog metadata', function () {
-        upmeta.name.should.eql(opts.name);
+        upmeta.name.should.eql(blogname);
       })
 
       it('updates new title in blog metadata', function () {

@@ -36,3 +36,17 @@ describe('when merging default with custom', function () {
     cus.nationality.should.eql('cus nationality');
   })
 })
+
+describe('innermostDir', function () {
+  it('of "" is ""', function () {
+    utl.innermostDir('').should.eql('');  
+  })
+
+  it('of "/1/2/3" is 3', function () {
+    utl.innermostDir('/1/2/3').should.eql('3');  
+  })
+  
+  it('of "1/2/3.33" is 3', function () {
+    utl.innermostDir('1/2/3.33').should.eql('3.33');  
+  })
+})
