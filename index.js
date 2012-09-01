@@ -22,14 +22,13 @@ var argv = require('optimist')
     .alias('s', 'tags')
     .describe('s', 'Post subjects with which it will be tagged')
     .argv
-  , postdir = path.join(__dirname, 'blog', argv.blog)
+  , postdir = path.join(__dirname, 'blog', argv.post)
   ;
 
   
 switch(argv.action) {
-  case 'preview':
-    var postdir = path.join(__dirname, 'blog', argv.post);
 
+  case 'preview':
     render(postdir, function (err, html) {
       if (err) { log.error('blog', err); return; }
 
@@ -38,8 +37,21 @@ switch(argv.action) {
     });
     break;
   
+  case 'publish':
+    var opts = {
+        title: argv.title
+      , tags: argv.tags
+    };
+
+    publish(postdir, opts, function (err) {
+      if (err) { log.error('publish', err); return; }
+      log.info('publish', 'Post %s successfully published/updated', argv.post);
+    });
+    break;
+
+  
   default:
-    log.error('engine', 'Unknown action:', argv.action);
+    log.error('blog-engine', 'Unknown action:', argv.action);
     break;
 }
   
