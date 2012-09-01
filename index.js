@@ -11,16 +11,21 @@ var log = require('npmlog')
   ;
 
 var argv = require('optimist')
-    .default('a', 'preview')
     .alias('a', 'action')
     .describe('a', 'One of the following: preview, publish')
-    .demand('p')
+    .default('a', 'preview')
+
     .alias('p', 'post')
     .describe('p', 'The directory in which the post resides inside the blog directory')
+    .demand('p')
+
     .alias('t', 'title')
     .describe('t', 'The title to give to the post')
+
     .alias('s', 'tags')
     .describe('s', 'Post subjects with which it will be tagged')
+    .default('s', 'untagged')
+
     .argv
   , postdir = path.join(__dirname, 'blog', argv.post)
   ;
@@ -38,10 +43,13 @@ switch(argv.action) {
     break;
   
   case 'publish':
-    var opts = {
-        title: argv.title
-      , tags: argv.tags
-    };
+    var tags = argv.tags
+          .split(' ')
+          .map(function (s) { return s.trim(); })
+      , opts = {
+          title: argv.title
+        , tags: tags
+      };
 
     publish(postdir, opts, function (err) {
       if (err) { log.error('publish', err); return; }
