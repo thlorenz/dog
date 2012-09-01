@@ -2,7 +2,12 @@
 
 var render = module.exports.render = require('./lib/renderer').render
   , publish = module.exports.publish = require('./lib/publish')
+  , provider = require('./lib/provider')
   ;
+
+Object.keys(provider).forEach(function (exp) {
+  module.exports[exp] = provider[exp];  
+});
 
 if (module.parent) return;
 
@@ -12,12 +17,11 @@ var log = require('npmlog')
 
 var argv = require('optimist')
     .alias('a', 'action')
-    .describe('a', 'One of the following: preview, publish')
+    .describe('a', 'One of the following: preview, publish, summary')
     .default('a', 'preview')
 
     .alias('p', 'post')
     .describe('p', 'The directory in which the post resides inside the blog directory')
-    .demand('p')
 
     .alias('t', 'title')
     .describe('t', 'The title to give to the post')
@@ -34,6 +38,8 @@ var argv = require('optimist')
 switch(argv.action) {
 
   case 'preview':
+    if (!argv.post) { log.error('blog', 'Need to specify post to preview!'); return; }
+
     render(postdir, function (err, html) {
       if (err) { log.error('blog', err); return; }
 
@@ -43,6 +49,8 @@ switch(argv.action) {
     break;
   
   case 'publish':
+    if (!argv.post) { log.error('blog', 'Need to specify post to publish!'); return; }
+
     var tags = argv.tags
           .split(' ')
           .map(function (s) { return s.trim(); })
@@ -56,7 +64,9 @@ switch(argv.action) {
       log.info('publish', 'Post %s successfully published/updated', argv.post);
     });
     break;
-
+  case 'summary':
+    module.exports.printSummary();
+    break;
   
   default:
     log.error('blog-engine', 'Unknown action:', argv.action);
