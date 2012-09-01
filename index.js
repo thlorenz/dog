@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-var render = module.exports.render = require('./lib/renderer').render;
+var render = module.exports.render = require('./lib/renderer').render
+  , publish = module.exports.publish = require('./lib/publish')
+  ;
 
 if (module.parent) return;
 
