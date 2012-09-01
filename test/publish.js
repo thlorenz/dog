@@ -31,8 +31,8 @@ describe('blog publishing', function () {
     error                   =  null;
     blogname                =  'blogname'
     blogdir                 =  path.join('blog', blogname);
-    blogJsonFile            =  path.join(blogdir, 'blog.json');
-    blogindexJsonFile       =  path.join(blogdir, '..', 'blogs.json');
+    blogJsonFile            =  path.join(blogdir, 'post.json');
+    blogindexJsonFile       =  path.join(blogdir, '..', 'blog.json');
     blogdirExists           =  true;
     blogJsonFileExists      =  false;
     blogindexJsonFileExists =  false;
@@ -118,8 +118,8 @@ describe('blog publishing', function () {
      meta.tags.should.eql(opts.tags);
     })
 
-    it('adds blog to blogs index', function () {
-      index.blogs.should.include(blogname);
+    it('adds blog to posts index', function () {
+      index.posts.should.include(blogname);
     })
 
     it('adds blog tags to blogs index tags', function () {
