@@ -1,4 +1,4 @@
-.blog-entry p > code {
+.blog-post p > code {
   background: #F0F8F7;
   border-radius: 3px;
   padding: 2px 5px 2px 5px;
@@ -7,13 +7,13 @@
 }
 
 /* block quotes */
-.blog-entry pre {
+.blog-post pre {
   font-style: italic;
   padding-left: 40px;
 }
 
 /* Don't apply above block quote style to code samples */
-.blog-entry pre .syntaxhighlighter {
-  font-style: inherit;
+.blog-post pre .syntaxhighlighter {
+  font-style: initial;
   margin-left: -40px;
 }

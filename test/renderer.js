@@ -2,14 +2,14 @@
 
 var blog = require('..')
   , path = require('path')
-  , blogunoDir = path.join(__dirname, 'fixtures', 'bloguno')
+  , postunoDir = path.join(__dirname, 'fixtures', 'postuno')
   ;
 
-describe('when rendering bloguno that has an inlined and an external snippet', function () {
+describe('when rendering postuno that has an inlined and an external snippet', function () {
   var result;
 
   before(function (done) {
-    blog.render(blogunoDir, function (err, html) {
+    blog.render(postunoDir, function (err, html) {
       if (err) console.error(err); 
       else result = html;
       done();
@@ -36,8 +36,8 @@ describe('when rendering bloguno that has an inlined and an external snippet', f
     result.should.include('<code class="keyword">var</code> <code class="plain">simple = 1;</code>');
   })
 
-  it('wraps it in blog-entry article', function () {
-    result.should.include('<article class="blog-entry"');  
+  it('wraps it in blog-post article', function () {
+    result.should.include('<article class="blog-post"');  
   })
 })
 
