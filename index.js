@@ -25,6 +25,11 @@ var argv = require('optimist')
       , describe: 'One of the following: preview, publish, summary, includeStyles'
       , default: 'preview'
     })
+    .options('r', {
+        alias: 'root'
+      , describe: 'The root directory of your blog e.g., the one that contains blog.json'
+      , default: './'
+    })
     .options('p', {
         alias: 'post'
       , describe: 'The directory in which the post resides inside the blog directory'
@@ -63,10 +68,10 @@ var argv = require('optimist')
       })
 
     .argv
-  , postdir = path.join(__dirname, 'blog', argv.post)
+  , postdir = path.join(argv.root, argv.post)
   ;
 
-  
+// TODO: print argv used (e.g., filter more than 2 chars long)
 switch(argv.action) {
 
   case 'preview':
@@ -92,7 +97,9 @@ switch(argv.action) {
     });
     break;
   case 'summary':
-    provider.printSummary();
+    provider
+      .initProvider(argv.root)
+      .printSummary();
     break;
 
   case 'includeStyles':

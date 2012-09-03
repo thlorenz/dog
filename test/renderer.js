@@ -2,7 +2,7 @@
 
 var blog = require('..')
   , path = require('path')
-  , postunoDir = path.join(__dirname, 'fixtures', 'postuno')
+  , postunoDir = path.join(__dirname, 'fixtures', 'testblog', 'postuno')
   ;
 
 describe('when rendering postuno that has an inlined and an external snippet', function () {
