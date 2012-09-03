@@ -151,6 +151,30 @@ describe('publishing and unpublishing', function () {
         blogjson.tags.should.include('tag-tres');  
         blogjson.tags.should.include('tag-cuatro');  
       })
+
+      describe('and I unpublish post dos', function () {
+        
+        before(function (done) {
+          sut.unpublish(postdosdir, function (err) {
+            if (err) { console.trace(); throw err; }
+            readJsons();
+            done();
+          });
+        })
+
+        it('removes post dos\'s post.json', function () {
+          utl.existsSync(postdosjsonFile).should.eql(false);
+        })
+        
+        it('removes post dos from blog posts', function () {
+          blogjson.posts.length.should.eql(0);
+        })
+
+        it('removes remaining tags from blog tags since no posts are remaining', function () {
+          blogjson.tags.length.should.eql(0);
+        })
+
+      })
     })
 
     describe('and I try to unpublish non existent post tres', function () {

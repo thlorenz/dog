@@ -1,10 +1,6 @@
 {
-  "posts": [
-    "example"
-  ],
-  "tags": [
-    "untagged"
-  ],
+  "posts": [],
+  "tags": [],
   "styles": [
     "code",
     "code-fixes",

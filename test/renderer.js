@@ -1,6 +1,6 @@
 /*jshint asi:true, esnext:true */
 
-var blog = require('..')
+var dog = require('..')
   , path = require('path')
   , postunoDir = path.join(__dirname, 'fixtures', 'testblog', 'postuno')
   ;
@@ -9,7 +9,7 @@ describe('when rendering postuno that has an inlined and an external snippet', f
   var result;
 
   before(function (done) {
-    blog.render(postunoDir, function (err, html) {
+    dog.renderer.render(postunoDir, function (err, html) {
       if (err) console.error(err); 
       else result = html;
       done();
