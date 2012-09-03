@@ -102,7 +102,6 @@ switch(argv.action) {
       log.info('publisher', 'Styles: "%s" successfully included', argv.styles);
     });
     break;
-
   
   default:
     log.error('blog-engine', 'Unknown action:', argv.action);
