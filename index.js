@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
-var render = module.exports.render = require('./lib/renderer').render
-  , publish = module.exports.publish = require('./lib/publish')
-  , provider = require('./lib/provider')
+var utl           =  require('./lib/utl')
+  , render        =  module.exports.render     =  require('./lib/renderer').render
+  , publish       =  module.exports.publish    =  require('./lib/publisher').publish
+  , includeStyles =  module.exports.publish    =  require('./lib/publisher').includeStyles
+  , provider      =  require('./lib/provider')
   ;
 
 Object.keys(provider).forEach(function (exp) {
@@ -16,19 +18,49 @@ var log = require('npmlog')
   ;
 
 var argv = require('optimist')
-    .alias('a', 'action')
-    .describe('a', 'One of the following: preview, publish, summary')
-    .default('a', 'preview')
+    .usage('$0 -a <action> [options]')
 
-    .alias('p', 'post')
-    .describe('p', 'The directory in which the post resides inside the blog directory')
+    .options('a', {
+        alias: 'action'
+      , describe: 'One of the following: preview, publish, summary, includeStyles'
+      , default: 'preview'
+    })
+    .options('p', {
+        alias: 'post'
+      , describe: 'The directory in which the post resides inside the blog directory'
+    })
+    .options('t', {
+        alias: 'title'
+      , describe: 'The title to give to the post'
+      , default: 'Untitled'
+    })
+    .options('g', {
+        alias: 'tags'
+      , describe: 'Tags which should be applied to the post'
+      , default: 'untagged'
+    })
+    .options('s', {
+        alias: 'styles'
+      , describe: 'Styles (without ".css" extension) to be included when the blog is provided'
+      , default: 'code code-fixes blog'
+    })
 
-    .alias('t', 'title')
-    .describe('t', 'The title to give to the post')
-
-    .alias('s', 'tags')
-    .describe('s', 'Post subjects with which it will be tagged')
-    .default('s', 'untagged')
+    .check(function (args) {
+        switch(args.action) {
+          case 'preview':
+            if (!args.post) throw new Error('Please specify post to preview.');
+            break;
+          case 'publish':
+            if (!args.post) throw new Error('Please specify post to publish.');
+            break;
+          case 'includeStyles':
+            if (!args.styles) throw new Error('Please specify styles to include.');
+            break;
+            
+          default:
+            return true;
+        }
+      })
 
     .argv
   , postdir = path.join(__dirname, 'blog', argv.post)
@@ -38,8 +70,6 @@ var argv = require('optimist')
 switch(argv.action) {
 
   case 'preview':
-    if (!argv.post) { log.error('blog', 'Need to specify post to preview!'); return; }
-
     render(postdir, function (err, html) {
       if (err) { log.error('blog', err); return; }
 
@@ -49,24 +79,30 @@ switch(argv.action) {
     break;
   
   case 'publish':
-    if (!argv.post) { log.error('blog', 'Need to specify post to publish!'); return; }
 
-    var tags = argv.tags
-          .split(' ')
-          .map(function (s) { return s.trim(); })
+    var tags = utl.split(argv.tags)
       , opts = {
           title: argv.title
         , tags: tags
       };
 
     publish(postdir, opts, function (err) {
-      if (err) { log.error('publish', err); return; }
-      log.info('publish', 'Post %s successfully published/updated', argv.post);
+      if (err) { log.error('publisher', err); return; }
+      log.info('publisher', 'Post %s successfully published/updated', argv.post);
     });
     break;
   case 'summary':
-    module.exports.printSummary();
+    provider.printSummary();
     break;
+
+  case 'includeStyles':
+    var styles = utl.split(argv.styles);
+    includeStyles(postdir, styles, function (err) {
+      if (err) { log.error('publisher', err); return; }
+      log.info('publisher', 'Styles: "%s" successfully included', argv.styles);
+    });
+    break;
+
   
   default:
     log.error('blog-engine', 'Unknown action:', argv.action);

@@ -1,0 +1,13 @@
+{
+  "posts": [
+    "example"
+  ],
+  "tags": [
+    "javascript"
+  ],
+  "styles": [
+    "code",
+    "code-fixes",
+    "blog"
+  ]
+}
