@@ -1,6 +1,6 @@
 {
   "name": "blog",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Markdown based blog for thlorenz.com along with conversion library and post creation utilities.",
   "main": "index.js",
   "scripts": {
