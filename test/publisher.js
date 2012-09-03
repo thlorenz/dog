@@ -61,18 +61,10 @@ describe('post publishing', function () {
       }
     };
 
-    // Supress all logging during tests
-    log = { 
-        info    :  function () {}
-      , verbose :  function () {}
-      , silly   :  function () {}
-      , error   :  function () {}
-    };
-
     publish = proxyquire.resolve('../lib/publisher', __dirname, { 
           fs      :  fs
         , './utl' :  utl
-        , npmlog  :  log 
+        , npmlog  :  require('./fakes/npmlog')
       })
       .publish;
   })
