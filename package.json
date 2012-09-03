@@ -1,7 +1,7 @@
 {
-  "name": "blog",
+  "name": "dog",
   "version": "0.0.3",
-  "description": "Markdown based blog for thlorenz.com along with conversion library and post creation utilities.",
+  "description": "Developer blOG, markdown based, made to be simple and fast, yet feature rich.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
