@@ -75,14 +75,13 @@ var argv = require('optimist')
   , postdir = path.join(argv.root, argv.post)
   ;
 
-// TODO: print argv used (e.g., filter more than 2 chars long)
 switch(argv.action) {
 
   case 'preview':
     renderer.render(postdir, function (err, html) {
       if (err) { log.error('blog', err); return; }
 
-      log.info('preview', 'Opening blog %s in browser', argv.blog);
+      log.info('preview', 'Opening post %s in browser', argv.post);
       require('./lib/preview')(postdir, html);
     });
     break;

@@ -1,6 +1,11 @@
 {
-  "posts": [],
-  "tags": [],
+  "posts": [
+    "first-post"
+  ],
+  "tags": [
+    "blog",
+    "markdown"
+  ],
   "styles": [
     "code",
     "code-fixes",
