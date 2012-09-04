@@ -14,5 +14,5 @@
 
 ## Examples
 
-Please consult the [blog-only](https://github.com/thlorenz/dog/tree/master/examples/blog-only) and the [bog-site](https://github.com/thlorenz/dog/tree/master/examples/blog-site)
+Please consult the [blog-only](https://github.com/thlorenz/dog/tree/master/examples/blog-only) and the [blog-site](https://github.com/thlorenz/dog/tree/master/examples/blog-site)
 examples in order to get an idea on how to use dog.
