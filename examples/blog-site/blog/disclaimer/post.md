@@ -6,7 +6,7 @@ Please keep in mind that I favored simplicity over correctness and robustness.
 
 I used shorter (and somewhat naive) implementations and avoided using libraries to let this example stand on its own.
 
-## Improvments needed
+## Improvements needed
 
 The following should be improved if this was to be used for real:
 

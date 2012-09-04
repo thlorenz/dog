@@ -8,7 +8,7 @@ Please keep in mind that I favored simplicity over correctness and robustness.
 
 I used shorter (and somewhat naive) implementations and avoided using libraries to let this example stand on its own.
 
-## Improvments needed
+## Improvements needed
 
 The following should be improved if this was to be used for real:
 
@@ -20,4 +20,7 @@ The following should be improved if this was to be used for real:
 
 Alright, enough of the warnings, here is how you run the example:
 
+After you installed **dog** via: `npm install dog`, do the following:
 
+    npm explore dog
+    npm run-script example-site
