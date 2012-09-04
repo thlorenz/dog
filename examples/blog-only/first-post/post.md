@@ -2,7 +2,7 @@
 
 Some introduction to the blog would be here, followed by the gory details.
 
-![nodejs](blog/assets/images/nodejs.png)
+![nodejs](assets/images/nodejs.png)
 
 ## Inlined snippet
 

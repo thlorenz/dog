@@ -1,0 +1,30 @@
+
+.syntaxhighlighter .gutter .line {
+  border-right: 1px solid rgba(67, 189, 67, 0.26) !important;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.syntaxhighlighter .gutter {
+  padding-right: 8px;
+}
+
+.syntaxhighlighter {
+  width: 735px;
+  border-radius: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+
+.syntaxhighlighter {
+  background-color: #FAF6DF !important;
+}
+.syntaxhighlighter .line.alt1 {
+  background-color: transparent !important;
+}
+.syntaxhighlighter .line.alt2 {
+  background-color: transparent !important;
+}

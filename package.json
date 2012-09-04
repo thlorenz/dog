@@ -4,7 +4,9 @@
   "description": "Developer blOG, markdown based, made to be simple and fast, yet feature rich.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "example-site": "cd examples/blog-site/site; node app",
+    "example-preview": "node . -r ./examples/blog-only -p first-post"
   },
   "repository": {
     "type": "git",

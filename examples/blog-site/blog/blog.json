@@ -1,0 +1,19 @@
+{
+  "posts": [
+    "disclaimer",
+    "first-post"
+  ],
+  "tags": [
+    "blog",
+    "markdown",
+    "warning",
+    "example",
+    "best-practice"
+  ],
+  "styles": [
+    "code",
+    "code-fixes",
+    "blog",
+    "preview"
+  ]
+}
