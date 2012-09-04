@@ -69,6 +69,18 @@ describe('innermostDir', function () {
     utl.innermostDir('').should.eql('');  
   })
 
+  it('of "abc" is "abc"', function () {
+    utl.innermostDir('abc').should.eql('abc');  
+  })
+
+  it('of "abc/" is "abc"', function () {
+    utl.innermostDir('abc/').should.eql('abc');  
+  })
+
+  it('of "/abc" is "abc"', function () {
+    utl.innermostDir('/abc').should.eql('abc');  
+  })
+
   it('of "/1/2/3" is 3', function () {
     utl.innermostDir('/1/2/3').should.eql('3');  
   })
