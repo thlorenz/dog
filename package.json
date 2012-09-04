@@ -3,6 +3,7 @@
   "version": "0.0.6",
   "description": "Developer blOG, markdown based, made to be simple and fast, yet feature rich.",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "mocha",
     "example-site": "cd examples/blog-site/site; node app",
