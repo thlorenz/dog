@@ -12,6 +12,16 @@
     order to flesh out what exactly to expose as public api and also document
   - at this point be welcome to use it if you don't need documentation
 
+## Installation
+
+As a commandline tool in order to maintain, publish, etc., your blog:
+    
+    npm install -g dog
+
+Inside the application that uses **dog** to provide your blog:
+
+    npm install dog
+
 ## Examples
 
 Please consult the [blog-only](https://github.com/thlorenz/dog/tree/master/examples/blog-only) and the [blog-site](https://github.com/thlorenz/dog/tree/master/examples/blog-site)
