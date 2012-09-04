@@ -80,14 +80,14 @@ function serveSite () {
 
         case '/blog/assets/styles/blog.css':
           fs.readFile(blogstyleFile, 'utf8', function (err, data) {
-            if (err) { fail(505); return; }
+            if (err) { fail(500); return; }
             respond(data, 'text/css');
           });
           break;
 
         case '/blog/assets/images/nodejs.png':
           fs.readFile(nodejsImg, function (err, data) {
-            if (err) { fail(505); return; }
+            if (err) { fail(500); return; }
             respond(data, 'image/png');
           });
           break;
@@ -101,7 +101,7 @@ function serveSite () {
     .listen(PORT, 'localhost');
 
   log.info('blog-server', 'Listening at localhost:', PORT);
-  log.info('blog-server', 'Please point your browser to http://localhost:%s', PORT);
+  log.info('blog-server', 'Please point your browser to: http://localhost:%s', PORT);
 }
 
 function initializeBlog (initialized) {
