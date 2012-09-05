@@ -3,8 +3,9 @@
 
   - markdown based
   - snippet support
+  - posts stored on file system 
   - provides html and default styles
-  - publish via simple command line
+  - publishes via simple command line
 
 ![cat](https://github.com/thlorenz/dog/raw/master/assets/cat.png)
 
@@ -25,9 +26,9 @@ Inside the application that uses **dog** to provide your blog:
 
     npm install dog
 
-## Scaffold Blog
+## Scaffold Your Blog
 
-To get your blog started create a directory where you want your blog to live and then do:
+To get your blog started create a directory where you want your it to live and then do:
   
     dog -a scaffold
 
