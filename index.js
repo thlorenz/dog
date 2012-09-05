@@ -4,12 +4,14 @@ var utl           =  require('./lib/utl')
   , publisher     =  require('./lib/publisher')
   , renderer      =  require('./lib/renderer')
   , provider      =  require('./lib/provider')
+  , scaffolder    =  require('./lib/scaffolder')
   ;
 
 module.exports = {
-    publisher: publisher
-  , renderer: renderer
-  , provider: provider
+    publisher  :  publisher
+  , renderer   :  renderer
+  , provider   :  provider
+  , scaffolder :  scaffolder
 };
 
 if (module.parent) return;
@@ -23,7 +25,7 @@ var argv = require('optimist')
 
     .options('a', {
         alias: 'action'
-      , describe: 'One of the following: preview, publish, unpublish, summary, includeStyles'
+      , describe: 'One of the following: scaffold, preview, publish, unpublish, summary, includeStyles'
       , default: 'preview'
     })
     .options('r', {
@@ -76,6 +78,11 @@ var argv = require('optimist')
   ;
 
 switch(argv.action) {
+  case 'scaffold':
+    scaffolder.scaffold(argv.root, function (err) {
+      if (err) { log.error('scaffolder', err); return; }
+    });
+    break;
 
   case 'preview':
     renderer.render(postdir, function (err, html) {
