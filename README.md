@@ -22,6 +22,16 @@ Inside the application that uses **dog** to provide your blog:
 
     npm install dog
 
+## Scaffold Blog
+
+To get your blog started create a directory where you want your blog to live and then do:
+  
+    dog -a scaffold
+
+This will create the folder structure including styles and an introductory post.
+
+You should preview that post in order to learn more about **dog**.
+
 ## Examples
 
 Please consult the [blog-only](https://github.com/thlorenz/dog/tree/master/examples/blog-only) and the [blog-site](https://github.com/thlorenz/dog/tree/master/examples/blog-site)
