@@ -16,7 +16,9 @@
   "keywords": [
     "markdown",
     "blog",
-    "highlight"
+    "highlight",
+    "code",
+    "snippets"
   ],
   "author": "Thorsten Lorenz <thlorenz@gmx.de> (http://thorstenlorenz/wordpress.com)",
   "license": "BSD",
