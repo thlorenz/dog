@@ -2,7 +2,8 @@
 ## D *eveloper bl* OG
 
   - markdown based
-  - snippet support
+  - code snippet support
+  - syntax highlighting
   - posts stored on file system 
   - provides html and default styles
   - publishes via simple command line
