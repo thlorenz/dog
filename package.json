@@ -26,7 +26,8 @@
     "npmlog": "0.0.2",
     "marked": "~0.2.5",
     "node-syntaxhighlighter": "~0.8.1",
-    "optimist": "~0.3.4"
+    "optimist": "~0.3.4",
+    "runnel": "~0.0.4"
   },
   "devDependencies": {
     "should": "~1.1.0",
