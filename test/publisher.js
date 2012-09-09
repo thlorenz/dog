@@ -76,7 +76,7 @@ test('when I publish bloguno given title and tags uno, dos and tres', function (
     t.deepEqual(postunojson.tags ,  opts.tags   ,  'publishes tags for post uno')
     t.deepEqual(blogjson.posts   ,  ['postuno'] ,  'blog has postuno')
 
-    t.test('and then publish blog dos given title and tags dos, tres, and cuatro', function (t) {
+    t.test('# and then publish blog dos given title and tags dos, tres, and cuatro', function (t) {
       t.plan(7)
 
       var opts = {
@@ -95,7 +95,7 @@ test('when I publish bloguno given title and tags uno, dos and tres', function (
         t.equal(blogjson.posts.length   ,  2                ,  'blog has 2 posts')
         t.similar(blogjson.posts        , ['postuno', 'postdos'] , 'blog has postuno and postdos')
 
-        t.test('and I unpublish post uno ', function (t) {
+        t.test('# # and I unpublish post uno ', function (t) {
           t.plan(4)
 
           sut.unpublish(postunodir, function (err) {
@@ -143,7 +143,7 @@ test('when I publish bloguno given title and tags uno, dos and tres', function (
   sut.publish(postunodir, opts, function (err) {
     if (err) { console.trace(); throw err; }
 
-    t.test('and I try to unpublish non existent post tres', function (t) {
+    t.test('# and I try to unpublish non existent post tres', function (t) {
       var posttresdir = path.join(blogdir, 'posttres')
 
       sut.unpublish(posttresdir, function (err) {
@@ -173,7 +173,7 @@ test('when I publish bloguno given title and tags uno, dos and tres', function (
   sut.publish(postunodir, opts, function (err) {
     if (err) { console.trace(); throw err; }
 
-    t.test('and I publish the same post again in order to update it\'s title and add a tag', function (t) {
+    t.test('# and I publish the same post again in order to update it\'s title and add a tag', function (t) {
       var upopts;
 
       firstNow = now; 
