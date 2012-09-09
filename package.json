@@ -6,6 +6,7 @@
   "bin": "index.js",
   "scripts": {
     "test": "mocha",
+    "tap": "tap ./test/*.tap.js",
     "example-site": "cd examples/blog-site/site; node app",
     "example-preview": "node . -r ./examples/blog-only -p first-post"
   },
@@ -34,6 +35,7 @@
   "devDependencies": {
     "should": "~1.1.0",
     "mocha": "~1.4.1",
-    "proxyquire": "~0.3.2"
+    "proxyquire": "~0.3.2",
+    "tap": "~0.3.1"
   }
 }

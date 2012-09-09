@@ -1,173 +1,200 @@
-/*jshint asi:true, esnext:true */
+/*jshint asi:true, laxbreak: true, esnext:true */
 
-function jsonify(obj) {
-  return JSON.parse(JSON.stringify(obj));
+var proxyquire = require('proxyquire')
+  , test = require('tap').test
+  , path = require('path')
+  , fs = require('fs')
+  , utl = require('../lib/utl')
+
+  , blogdir =  path.join(__dirname, 'fixtures', 'testblog')
+  , blogjsonFile = path.join(blogdir, 'blog.json')
+
+  , postunodir = path.join(blogdir, 'postuno')
+  , postunojsonFile = path.join(postunodir, 'post.json') 
+
+  , postdosdir = path.join(blogdir, 'postdos')
+  , postdosjsonFile = path.join(postdosdir, 'post.json') 
+
+  , cleanups = [ blogjsonFile, postunojsonFile, postdosjsonFile ]
+  , opts
+
+  , postunojson
+  , postdosjson
+  , blogjson
+
+  , now
+  , utlStub = {
+      now: function () { return now; }
+    }
+  , sut = proxyquire.resolve('../lib/publisher', __dirname, { npmlog: require('./fakes/npmlog'), './utl': utlStub })
+
+function readJsons() {
+  function jsonIfExists(file) {
+    if (!utl.existsSync(file)) return null;
+
+    var json = fs.readFileSync(file, 'utf8')
+      , metadata = JSON.parse(json)
+     
+    metadata.created = utl.stringToDate(metadata.created)
+    metadata.updated = utl.stringToDate(metadata.updated)
+    
+    return metadata;
+  }
+
+  blogjson = jsonIfExists(blogjsonFile)
+  postunojson = jsonIfExists(postunojsonFile)
+  postdosjson = jsonIfExists(postdosjsonFile)
+
 }
 
-var should = require('should')
-  , proxyquire = require('proxyquire')
-  , path = require('path')
-  , fs
-  , utl
-  , log
-  , error
-  , opts
-  , postname
-  , postdir
-  , postJsonFile
-  , blogJsonFile
-  , postdirExists
-  , postJsonFileExists
-  , blogJsonFileExists
-  , now 
-  , publish
-  , written
-  ;
+function setup () {
+  cleanups.forEach(function (file) {
+    if (utl.existsSync(file)) fs.unlink(file)
+  })      
+}
 
-describe('post publishing', function () {
-  beforeEach(function () {
-    opts = { title: 'My Example Post', tags: [ 'javascript', 'testing' ] }
+test('when I publish bloguno given title and tags uno, dos and tres', function (t) {
+  t.plan(7)
 
-    error              =  null;
-    postname           =  'postname'
-    postdir            =  path.join('blog', postname);
-    postJsonFile       =  path.join(postdir, 'post.json');
-    blogJsonFile       =  path.join(postdir, '..', 'blog.json');
-    postdirExists      =  true;
-    postJsonFileExists =  false;
-    blogJsonFileExists =  false;
-    now                =  new Date(2012, 0, 1)
-    written            =  {}
+  setup()
 
-    utl = {
-        exists: function (entry, cb) { 
-          switch(entry) {
-            case postJsonFile :  cb(postJsonFileExists) ; break ;
-            case blogJsonFile :  cb(blogJsonFileExists) ; break ;
-            case postdir      :  cb(postdirExists)      ; break ;
-          }
-        }
-      , ensurePathExists: function (entry, cb) {
-          if (entry === postdir && !postdirExists) cb(new Error('not exists'));
-          else cb();
-        }
-      , now: function () { return now; }
-    };
+  var opts = {
+      title: 'title for postuno'
+    , tags: [ 'tag-uno', 'tag-dos', 'tag-tres' ]
+    }
 
-    fs = {
-      writeFile : function(file, content, encoding, cb) {
-        written[file] = JSON.parse(content);
-        cb();
-      }
-    };
+  now = new Date(2012, 0, 1);
 
-    publish = proxyquire.resolve('../lib/publisher', __dirname, { 
-          fs      :  fs
-        , './utl' :  utl
-        , npmlog  :  require('./fakes/npmlog')
-      })
-      .publish;
-  })
+  sut.publish(postunodir, opts, function (err) {
+    if (err) { console.trace(); throw err; }
+    readJsons()
+  
+    t.equal(postunojson.name     ,  'postuno'   ,  'publishes name for post uno')
+    t.equal(postunojson.title    ,  opts.title  ,  'publishes title for post uno')
+    t.equal(postunojson.created.toString(), now.toString(), 'publishes created date for post uno')
+    t.equal(postunojson.updated.toString(), now.toString(), 'publishes updated date for post uno')
+    t.deepEqual(postunojson.tags ,  opts.tags   ,  'publishes tags for post uno')
+    t.deepEqual(blogjson.posts   ,  ['postuno'] ,  'blog has postuno')
 
-  describe('when post doesn\'t exist', function () {
-    beforeEach(function () {
-      postdirExists = false;
+    t.test('and then publish blog dos given title and tags dos, tres, and cuatro', function (t) {
+      t.plan(7)
 
-      publish(postdir, opts, function (err) {
-        error = err;  
-      });
-    })
+      var opts = {
+          title: 'title for postdos'
+        , tags: [ 'tag-dos', 'tag-tres', 'tag-cuatro' ]
+      };
 
-    it('calls back with error', function () {
-      should.exist(error);
-    })  
-  })
+      sut.publish(postdosdir, opts, function (err) {
+        if (err) { console.trace(); throw err; }
+        readJsons()
 
-  describe('when post wasn\'t published before', function () {
-    var meta, index, firstNow;
-    beforeEach(function () {
-      publish(postdir, opts, function () { });
-      meta = written[postJsonFile];
-      index = written[blogJsonFile];
-    })
+        t.equal(postdosjson.name        ,  'postdos'        ,  'publishes name for post dos')
+        t.equal(postdosjson.title       ,  opts.title       ,  'publishes title for post dos')
+        t.equal(postdosjson.tags.length ,  opts.tags.length ,  'publishes all tags for post dos')
+        t.similar(postdosjson.tags      ,  opts.tags        ,  'publishes same tags for post dos')
+        t.equal(blogjson.posts.length   ,  2                ,  'blog has 2 posts')
+        t.similar(blogjson.posts        , ['postuno', 'postdos'] , 'blog has postuno and postdos')
 
-    it('adds name to post metadata', function () {
-      meta.name.should.eql(postname);
-    })
+        t.test('and I unpublish post uno ', function (t) {
+          t.plan(4)
 
-    it('adds title to post metadata', function () {
-     meta.title.should.eql(opts.title);
-    })
+          sut.unpublish(postunodir, function (err) {
+            if (err) { console.trace(); throw err; }
+            readJsons();
 
-    it('adds created (now) to post metadata', function () {
-      meta.created.should.eql(jsonify(now));
-    })
+            t.notOk(utl.existsSync(postunojsonFile), 'removes post uno\'s post json')
+            t.deepEqual(blogjson.posts, ['postdos'], 'removes post uno from blog posts')
+            t.deepEqual( blogjson.tags , ['tag-dos', 'tag-tres', 'tag-cuatro'] , 'removes tag-uno')
 
-    it('adds updated (now) to post metadata', function () {
-      meta.updated.should.eql(jsonify(now));
-    })
+            t.test('and I unpublish post dos ', function (t) {
+              t.plan(3)
 
-    it('adds tags to post metadata', function () {
-     meta.tags.should.eql(opts.tags);
-    })
+              sut.unpublish(postdosdir, function (err) {
+                if (err) { console.trace(); throw err; }
+                readJsons();
 
-    it('adds post to blogs', function () {
-      index.posts.should.include(postname);
-    })
+                t.notOk(utl.existsSync(postdosjsonFile), 'removes post dos\'s post json')
+                t.deepEqual(blogjson.posts, [], 'removes post dos from blog posts')
+                t.deepEqual( blogjson.tags , [] , 'removes remaining tags')
 
-    it('adds post tags to blog tags', function () {
-      index.tags.should.eql(opts.tags);  
-    })
-
-    describe('and I publish the same post again in order to update it\'s title and add a tag', function () {
-      var upmeta, upindex, upopts;
-
-      beforeEach(function () {
-        firstNow = now; 
-        now = new Date(2012, 0, 2);
-        upopts = { title: 'new title', tags: ['javascript', 'testing', 'post'] };
-
-        postJsonFileExists = true;
-        blogJsonFileExists = true;
-
-        fs.readFile= function (file, encoding, cb) {
-          switch(file) {
-            case postJsonFile :  cb(null, JSON.stringify(meta))  ; break ;
-            case blogJsonFile :  cb(null, JSON.stringify(index)) ; break ;
-          }
-        }
-
-        publish(postdir, upopts, function () { });
-
-        upmeta = written[postJsonFile];
-        upindex = written[blogJsonFile];
-      })
-
-      it('keeps name in post metadata', function () {
-        upmeta.name.should.eql(postname);
-      })
-
-      it('updates new title in post metadata', function () {
-        upmeta.title.should.eql(upopts.title);
-      })
-
-      it('keeps created (now at first publish) in post metadata', function () {
-        upmeta.created.should.eql(jsonify(firstNow));
-      })
-
-      it('updates updated (current now) to post metadata', function () {
-        upmeta.updated.should.eql(jsonify(now));
-      })
-
-      it('adds tags to post metadata', function () {
-        upmeta.tags.should.eql(upopts.tags);
-      })
-
-      it('updates blog tags', function () {
-        upindex.tags.should.eql(upopts.tags);
+                t.end()
+              })
+            })
+            t.end()
+          })
+        })
+        t.end()
       })
     })
+    t.end()
   })
 })
 
+test('when I publish bloguno given title and tags uno, dos and tres', function (t) {
+  t.plan(1)
+
+  setup()
+
+  var opts = {
+      title: 'title for postuno'
+    , tags: [ 'tag-uno', 'tag-dos', 'tag-tres' ]
+    }
+
+  sut.publish(postunodir, opts, function (err) {
+    if (err) { console.trace(); throw err; }
+
+    t.test('and I try to unpublish non existent post tres', function (t) {
+      var posttresdir = path.join(blogdir, 'posttres')
+
+      sut.unpublish(posttresdir, function (err) {
+        t.plan(2)
+
+        t.ok(err, 'calls back with error')
+        t.ok(err.message.match(/post\.json doesn't exist/), 'error indicates the mistake')
+        t.end()
+      })
+    })
+    t.end()
+  })
+})
+
+test('when I publish bloguno given title and tags uno, dos and tres', function (t) {
+  t.plan(1)
+
+  setup()
+
+  var opts = {
+      title: 'title for postuno'
+    , tags: [ 'tag-uno', 'tag-dos', 'tag-tres' ]
+    }
+
+  now = new Date(2012, 0, 1);
+
+  sut.publish(postunodir, opts, function (err) {
+    if (err) { console.trace(); throw err; }
+
+    t.test('and I publish the same post again in order to update it\'s title and add a tag', function (t) {
+      var upopts;
+
+      firstNow = now; 
+      now = new Date(2012, 0, 2);
+      upopts = { title: 'new title', tags: ['javascript', 'testing', 'post'] };
+
+      sut.publish(postunodir, upopts, function () {
+        if (err) { console.trace(); throw err; }
+        readJsons()
+
+        t.equal(postunojson.name     ,  'postuno'   ,  'keeps name for post uno')
+        t.equal(postunojson.title    ,  upopts.title  ,  'updates post uno with new title')
+        t.equal(postunojson.created.toString(), firstNow.toString(), 'keeps created date for post uno')
+        t.equal(postunojson.updated.toString(), now.toString(), 'updates updated date for post uno')
+        t.deepEqual(postunojson.tags , upopts.tags, 'publishes tags for post uno')
+        t.deepEqual(blogjson.posts   , ['postuno'], 'blog has postuno')
+
+        t.end()
+      })
+    })
+    t.end()
+  })
+})
 
