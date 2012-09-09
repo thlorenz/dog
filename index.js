@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-var utl           =  require('./lib/utl')
-  , publisher     =  require('./lib/publisher')
-  , renderer      =  require('./lib/renderer')
-  , provider      =  require('./lib/provider')
-  , scaffolder    =  require('./lib/scaffolder')
+var utl        =  require('./lib/utl')
+  , util       =  require('util')
+  , publisher  =  require('./lib/publisher')
+  , renderer   =  require('./lib/renderer')
+  , provider   =  require('./lib/provider')
+  , scaffolder =  require('./lib/scaffolder')
   ;
 
 module.exports = {
@@ -18,19 +19,19 @@ if (module.parent) return;
 
 var log = require('npmlog')
   , path = require('path')
+  , actions = [ 'scaffold', 'preview', 'publish', 'unpublish', 'summary', 'includeStyles' ]
   ;
   
 // allow omitting --action or -a for first argument e.g., "dog -a publish" is the same as "dog publish"
 if (process.argv.length > 2 && !~process.argv[2].indexOf('-'))
   process.argv.splice(2, 0, '--action');
 
-
 var argv = require('optimist')
     .usage('$0 <action> [options]')
 
     .options('a', {
         alias: 'action'
-      , describe: 'One of the following: scaffold, preview, publish, unpublish, summary, includeStyles'
+      , describe: 'One of the following: ' + actions.join(', ')
       , default: 'preview'
     })
     .options('r', {
@@ -59,26 +60,41 @@ var argv = require('optimist')
     })
 
     .check(function (args) {
-        switch(args.action) {
-          case 'preview':
-            if (!args.post) throw new Error('Please specify post to preview.');
-            break;
-          case 'publish':
-            if (!args.post) throw new Error('Please specify post to publish.');
-            break;
-          case 'unpublish':
-            if (!args.post) throw new Error('Please specify post to unpublish');
-            break;
-          case 'includeStyles':
-            if (!args.styles) throw new Error('Please specify styles to include.');
-            break;
-            
-          default:
-            return true;
-        }
-      })
+      var actionMatches = utl.findMatches(actions, args.action);
 
+      if (actionMatches.length === 0) 
+        throw new Error(util.format('Unkown action: %s.', args.action));
+
+      if (actionMatches.length > 1)
+        throw new Error(
+          util.format(
+              'Given action string matches more than one action: %s, please be more specific.'
+            , actionMatches.join(' and ')
+          )
+        );
+
+      args.action = actionMatches[0];
+
+      switch(args.action) {
+        case 'preview':
+          if (!args.post) throw new Error('Please specify post to preview.');
+          break;
+        case 'publish':
+          if (!args.post) throw new Error('Please specify post to publish.');
+          break;
+        case 'unpublish':
+          if (!args.post) throw new Error('Please specify post to unpublish');
+          break;
+        case 'includeStyles':
+          if (!args.styles) throw new Error('Please specify styles to include.');
+          break;
+          
+        default:
+          return true;
+      }
+    })
     .argv
+
   , postdir = path.join(argv.root, argv.post)
   ;
 

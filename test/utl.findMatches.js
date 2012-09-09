@@ -10,14 +10,16 @@ test('matching array of items against a string returns all items that start with
     t.deepEqual(res, utl.findMatches(arr, str), msg)
   }
 
+  t.plan(8)
+
   t.throws(function () { utl.findMatches(['sub'], '') }, 'throws on empty string')
   t.throws(function () { utl.findMatches(['sub'], null) }, 'throws on null string')
-  check([], 'sub', [])
-  check([ 'sub' ], 'sub', [ 'sub' ])
-  check([ ' sub' ], 'sub', [ 'sub' ])
-  check([ 'substitute' ], 'sub', [ 'substitute' ])
-  check([ 'substitute', '_substitute' ], 'sub', [ 'substitute' ])
-  check([ 'substitute', 'subfolder', 'other' ], 'sub', [ 'substitute', 'subfolder' ])
+  check([                                    ] , 'sub', [                           ] )
+  check([ 'sub'                              ] , 'sub', [ 'sub'                     ] )
+  check([ ' sub'                             ] , 'sub', [ 'sub'                     ] )
+  check([ 'substitute'                       ] , 'sub', [ 'substitute'              ] )
+  check([ 'substitute', '_substitute'        ] , 'sub', [ 'substitute'              ] )
+  check([ 'substitute', 'subfolder', 'other' ] , 'sub', [ 'substitute', 'subfolder' ] )
 
   t.end()
 })
