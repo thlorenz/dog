@@ -19,9 +19,14 @@ if (module.parent) return;
 var log = require('npmlog')
   , path = require('path')
   ;
+  
+// allow omitting --action or -a for first argument e.g., "dog -a publish" is the same as "dog publish"
+if (process.argv.length > 2 && !~process.argv[2].indexOf('-'))
+  process.argv.splice(2, 0, '--action');
+
 
 var argv = require('optimist')
-    .usage('$0 -a <action> [options]')
+    .usage('$0 <action> [options]')
 
     .options('a', {
         alias: 'action'
@@ -117,7 +122,7 @@ switch(argv.action) {
 
   case 'summary':
     provider
-      .initProvider(argv.root)
+      .provideFrom(argv.root)
       .printSummary();
     break;
 
