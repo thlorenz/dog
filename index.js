@@ -116,7 +116,7 @@ switch(argv.action) {
   
   case 'publish':
 
-    var tags = utl.split(argv.tags)
+    var tags = utl.split(argv.tags, /[ ,]+/)
       , opts = {
           title: argv.title
         , tags: tags
@@ -143,7 +143,7 @@ switch(argv.action) {
     break;
 
   case 'includeStyles':
-    var styles = utl.split(argv.styles);
+    var styles = utl.split(argv.styles, /[ ,]+/);
     publisher.includeStyles(postdir, styles, function (err) {
       if (err) { log.error('publisher', err); return; }
       log.info('publisher', 'Styles: "%s" successfully included', argv.styles);
