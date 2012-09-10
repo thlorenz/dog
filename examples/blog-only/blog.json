@@ -1,10 +1,14 @@
 {
   "posts": [
-    "first-post"
+    "first-post",
+    "post-with-rendered-metadata"
   ],
   "tags": [
     "blog",
-    "markdown"
+    "markdown",
+    "json",
+    "rendering",
+    "dog"
   ],
   "styles": [
     "code",
