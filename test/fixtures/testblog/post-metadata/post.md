@@ -1,6 +1,6 @@
 # {{ meta: title }} 
 
-Created: {{ meta: updated }}
+## Created: {{ meta: created }}
 Updated: {{ meta: updated }}
 
 ## Chapter One
@@ -8,3 +8,11 @@ Updated: {{ meta: updated }}
 This would be some content
 
 Tags: {{ meta: tags }}
+
+## Should contain
+
+Here is what should be in it:
+
+- rendered title
+- rendered created and updated date
+- rendered tags
