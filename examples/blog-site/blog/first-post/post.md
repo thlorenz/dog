@@ -1,4 +1,10 @@
-# Blog Uno
+# {{ meta: title }}
+
+{{ meta: tags }}
+
+*Created on: {{ meta: created }}*
+
+*Last updated: {{ meta: updated }}*
 
 Some introduction to the blog would be here, followed by the gory details.
 

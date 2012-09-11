@@ -6,33 +6,3 @@
   padding: 5px 20px 20px 20px;
   border-radius: 10px
 }
-
-.blog-post h1 {
-  background: #F3EFCD;
-  border-top: 1px;
-  border-left: 1px;
-  border-right: 1px;
-  border-bottom: 1px;
-  border-color: #CAC59D;
-  border-style: solid;
-  border-radius: 5px 5px 1px 1px;
-  padding: 10px;
-}
-  
-.blog-post h2 {
-  border-top: 0px;
-  border-left: 0px;
-  border-right: 0px;
-  border-bottom: 1px;
-  border-color: #B0D4E2;
-  border-style: solid;
-  padding-bottom: 8px;
-}
-
-.blog-post hr {
-  margin-left: -20px;
-  margin-right: -20px;
-  border-style: solid;
-  border-color: white;
-  border-width: 10px;
-}
