@@ -1,6 +1,6 @@
 {
   "name": "dog",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Developer blOG, markdown based, made to be simple and fast, yet feature rich.",
   "main": "index.js",
   "bin": "index.js",
