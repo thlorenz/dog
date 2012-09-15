@@ -22,26 +22,22 @@ var log = require('npmlog')
   , actions = [ 'scaffold', 'preview', 'publish', 'unpublish', 'summary', 'includeStyles' ]
   ;
   
-// allow omitting --action or -a for first argument e.g., "dog -a publish" is the same as "dog publish"
-if (process.argv.length > 2 && !~process.argv[2].indexOf('-'))
-  process.argv.splice(2, 0, '--action');
 
 var argv = require('optimist')
     .usage('$0 <action> [options]')
-
     .options('a', {
         alias: 'action'
       , describe: 'One of the following: ' + actions.join(', ')
       , default: 'preview'
     })
+    .options('p', {
+        alias: 'post'
+      , describe: 'The directory in which the post resides inside the blog directory'
+    })
     .options('r', {
         alias: 'root'
       , describe: 'The root directory of your blog e.g., the one that contains blog.json'
       , default: './'
-    })
-    .options('p', {
-        alias: 'post'
-      , describe: 'The directory in which the post resides inside the blog directory'
     })
     .options('t', {
         alias: 'title'
@@ -58,6 +54,15 @@ var argv = require('optimist')
     })
 
     .check(function (args) {
+      
+      // allow omitting --action or -a for first argument e.g., "dog -a publish" is the same as "dog publish"
+      if (process.argv.length > 2 && !~process.argv[2].indexOf('-'))
+        args.action = process.argv[2];
+
+      // allow omitting --post or -p for second argument e.g., "dog pub -p my-post" is the same as "dog pub my-post"
+      if (process.argv.length > 3 && (process.argv[3].indexOf('-') !== 0))
+        args.post = process.argv[3];
+
       var actionMatches = utl.findMatches(actions, args.action);
 
       if (actionMatches.length === 0) 
