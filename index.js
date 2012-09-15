@@ -19,16 +19,15 @@ if (module.parent) return;
 
 var log = require('npmlog')
   , path = require('path')
-  , actions = [ 'scaffold', 'preview', 'publish', 'unpublish', 'summary', 'includeStyles' ]
+  , actions = [ 'scaffold', 'preview', 'publish', 'unpublish', 'summary', 'includeStyles', 'help' ]
   ;
   
 
-var argv = require('optimist')
+var cli = require('optimist')
     .usage('$0 <action> <post> [options]')
     .options('a', {
         alias: 'action'
       , describe: 'One of the following: ' + actions.join(', ')
-      , default: 'preview'
     })
     .options('p', {
         alias: 'post'
@@ -52,7 +51,6 @@ var argv = require('optimist')
       , describe: 'Styles (without ".css" extension) to be included when the blog is provided'
       , default: 'code code-fixes blog'
     })
-
     .check(function (args) {
       
       // allow omitting --action or -a for first argument e.g., "dog -a publish" is the same as "dog publish"
@@ -96,7 +94,7 @@ var argv = require('optimist')
           return true;
       }
     })
-    .argv
+  , argv = cli.argv
 
   , postdir = path.join(argv.root, argv.post)
   ;
@@ -151,6 +149,9 @@ switch(argv.action) {
       if (err) { log.error('publisher', err); return; }
       log.info('publisher', 'Styles: "%s" successfully included', argv.styles);
     });
+    break;
+  case 'help':
+    console.log(cli.help());
     break;
   
   default:

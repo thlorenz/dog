@@ -4,6 +4,9 @@
   "description": "Developer blOG, markdown based, made to be simple and fast, yet feature rich.",
   "main": "index.js",
   "bin": "index.js",
+  "engines": {
+    "node": ">=0.4 && <=0.9"
+  },
   "scripts": {
     "test": "tap ./test/*.js",
     "example-site": "cd examples/blog-site/site; node app",
