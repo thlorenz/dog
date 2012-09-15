@@ -46,12 +46,10 @@ var argv = require('optimist')
     .options('t', {
         alias: 'title'
       , describe: 'The title to give to the post'
-      , default: 'Untitled'
     })
     .options('g', {
         alias: 'tags'
       , describe: 'Tags which should be applied to the post'
-      , default: 'untagged'
     })
     .options('s', {
         alias: 'styles'
@@ -154,9 +152,3 @@ switch(argv.action) {
     log.error('blog-engine', 'Unknown action:', argv.action);
     break;
 }
-  
-
-
-
-
-

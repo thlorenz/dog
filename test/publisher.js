@@ -198,3 +198,42 @@ test('when I publish bloguno given title and tags uno, dos and tres', function (
   })
 })
 
+test('when I publish bloguno given title and tags uno, dos and tres', function (t) {
+  t.plan(1)
+
+  setup()
+
+  var opts = {
+      title: 'title for postuno'
+    , tags: [ 'tag-uno', 'tag-dos', 'tag-tres' ]
+    }
+
+  now = new Date(2012, 0, 1);
+
+  sut.publish(postunodir, opts, function (err) {
+    if (err) { console.trace(); throw err; }
+
+    t.test('# and I publish the same post again but omit title and tags', function (t) {
+      var upopts;
+
+      firstNow = now; 
+      now = new Date(2012, 0, 2);
+      upopts = { title: undefined, tags: undefined };
+
+      sut.publish(postunodir, upopts, function () {
+        if (err) { console.trace(); throw err; }
+        readJsons()
+
+        t.equal(postunojson.name     ,  'postuno'   ,  'keeps name for post uno')
+        t.equal(postunojson.title    ,  opts.title  ,  'keeps original title')
+        t.equal(postunojson.created.toString(), firstNow.toString(), 'keeps created date for post uno')
+        t.equal(postunojson.updated.toString(), now.toString(), 'updates updated date for post uno')
+        t.deepEqual(postunojson.tags , opts.tags, 'keeps original tags for post uno')
+        t.deepEqual(blogjson.posts   , ['postuno'], 'blog has postuno')
+
+        t.end()
+      })
+    })
+    t.end()
+  })
+})
