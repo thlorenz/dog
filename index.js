@@ -24,7 +24,7 @@ var log = require('npmlog')
   
 
 var argv = require('optimist')
-    .usage('$0 <action> [options]')
+    .usage('$0 <action> <post> [options]')
     .options('a', {
         alias: 'action'
       , describe: 'One of the following: ' + actions.join(', ')

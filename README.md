@@ -29,9 +29,9 @@ Inside the application that uses **dog** to provide your blog:
 
 ## Scaffold Your Blog
 
-To get your blog started create a directory where you want your it to live and then do:
+To get your blog started create a directory where you want your blog to live `cd` into it and then do:
   
-    dog -a scaffold
+    dog scaffold
 
 This will create the folder structure including styles and an introductory post.
 
