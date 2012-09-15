@@ -114,7 +114,7 @@ switch(argv.action) {
   
   case 'publish':
 
-    var tags = utl.split(argv.tags, /[ ,]+/)
+    var tags = argv.tags ? utl.split(argv.tags, /[ ,]+/) : undefined
       , opts = {
           title: argv.title
         , tags: tags
