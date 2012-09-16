@@ -1,6 +1,6 @@
 .blog-post {
   background: white;
-  padding: 10px;
+  padding: 20px;
   margin: 5px;
   border-radius: 5px;
   font-size: 16px;
@@ -8,12 +8,12 @@
   font-family: Arial, Tahoma, Helvetica, FreeSans, sans-serif;
 }
 
-.blog-post p > code {
+.blog-post p > code{
   background: #F0F8F7;
-  border-radius: 2px;
   padding: 2px 5px 2px 5px;
-  top: -2px;
   position: relative;
+  font-family: monospace;
+  border: 1px solid #C4DBDA;
 }
 
 /* block quotes */
@@ -72,6 +72,16 @@
   margin-bottom: 10px;
 }
 
+.blog-post h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.blog-post h4 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 .blog-post hr {
   margin-left: -20px;
   margin-right: -20px;
@@ -105,10 +115,27 @@
   color: rgba(9, 8, 8, 0.77);
 }
 
+.blog-post ul, .blog-post ol, .blog-post dl {
+  margin: 0 0 0 0px;
+}
+
 .blog-post ul {
-  padding-left: 5px;
-  margin-top: 15px;
+    list-style-type: disc;
+
+}
+
+.blog-post ul, .blog-post ol, .blog-post dl {
+  margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.blog-post li ul, .blog-post li ol, .blog-post li dl {
+  margin-top: 0;
+}
+
+.blog-post ul.tags {
+  margin-left: 8px;
+  padding-left: 0px;
 }
 
 .blog-post .tags li {
