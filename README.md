@@ -1,5 +1,6 @@
-# dog [![Build Status](https://secure.travis-ci.org/thlorenz/dog.png)](http://travis-ci.org/thlorenz/dog) ## D *eveloper
-bl* OG
+# dog [![Build Status](https://secure.travis-ci.org/thlorenz/dog.png)](http://travis-ci.org/thlorenz/dog) 
+
+## D *eveloper bl* OG
 
   - markdown based
   - code snippet support
@@ -158,6 +159,24 @@ Will be replaced with the content of the file `name` found inside the `snippets`
 Assume we have a post named mypost. Inside `./mypost` we created a `snippets` folder into which we copied `myscript.js`.
 
 We can now include that in `./mypost/post.md` via `{{ snippet: myscript.js }}`.
+
+## Dog Provider
+
+The dog provider assists you in serving your blog from a website.
+
+It offers a number of functions to that purpose. Althoug all of them are explained here, you most likely will only need
+the first four.
+
+The below explanations assume that you required dog in your module via `var dog = require('dog');`.
+
+### provideFrom
+
+`dog.provider.provideFrom(fullPathToBlog)`
+
+Call this before using any of the other provider functions to tell the provider in which directory your blog lives
+(i.e., where the `blog.json` file is found).
+
+
 
 ## Examples
 
