@@ -193,7 +193,7 @@ Gathers metadata of all posts that were published to your blog and attaches rend
 
 **Example Result:**
 
-```json
+```javascript
 [ 
   { name: 'my-first-post',
      metadata: 
@@ -250,7 +250,7 @@ Calls back with metadata of the given post.
 
 **Example Result:**
 
-```json
+```javascript
 { created: Sun Sep 16 2012 11:54:37 GMT-0400 (EDT),
   updated: Sun Sep 16 2012 16:42:37 GMT-0400 (EDT),
   tags: [ 'dog', 'tutorial', 'nodejs' ],
