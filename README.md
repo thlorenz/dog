@@ -1,6 +1,3 @@
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
-
-
 # dog [![Build Status](https://secure.travis-ci.org/thlorenz/dog.png)](http://travis-ci.org/thlorenz/dog) 
 
 ## D *eveloper bl* OG
@@ -14,6 +11,7 @@
 
 ![cat](https://github.com/thlorenz/dog/raw/master/assets/cat.png)
 
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 - [Installing Dog](#installing-dog)
 - [Dog Command Line](#dog-command-line)
   - [scaffold](#scaffold)
