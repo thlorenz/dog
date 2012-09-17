@@ -182,7 +182,7 @@ Call this before using any of the other provider functions to tell the provider 
 
 `dog.provider.concatenateStyles(callback)`
 
-Concatenates all styles from `assets/styles` is is configured to include (see [includeStyles](#includeStyles)) and calls
+Concatenates all styles from `assets/styles` is is configured to include (see [includeStyles](#includestyles)) and calls
 back with the resulting css.
 
 ### provideAll
@@ -220,7 +220,7 @@ Gathers metadata of all posts that were published to your blog and attaches rend
 
 `dog.provider.provideUpdatedSince (when, callback)`
 
-Same as [provideAll](#provideAll) except only posts updated since `when`, which is a `Date` object, are included.
+Same as [provideAll](#provideall) except only posts updated since `when`, which is a `Date` object, are included.
 
 ### copyImages
 
@@ -271,7 +271,9 @@ Various functions return full paths to important directories inside your blog.
 These are:
 
 `dog.provider.getAssetsDir()`
+
 `dog.provider.getImagesDir()`
+
 `dog.provider.getStylesDir()`
 
 ### getStylesFiles
@@ -286,8 +288,30 @@ Calls back with a list of full paths of all styles included in your blog.
 
 Prints out a summary of your blog, including importand directories and published posts.
 
+## Styling
+
+Aside from including styles targeting `.blog-post` inside your sites styles file, you can also edit the styles included
+with your blog inside `assets/styles`.
+
+You also can include additional styles by dropping them into that folder and including them in your blog via
+[includeStyles](#includestyles).
+
+The `code.css` style is a [SyntaxHighlighter](http://alexgorbatchev.com/SyntaxHighlighter) theme and can be replaced
+with any of the themes found [here](http://alexgorbatchev.com/SyntaxHighlighter/manual/themes/).
+
+This will change the looks of your syntax highlighted code.
+
+You may have to edit `code-fixes.css` as well in that case, since the styles in there are closely related.
+
 ## Examples
 
-Please consult the [blog-only](https://github.com/thlorenz/dog/tree/master/examples/blog-only) and the
-[blog-site](https://github.com/thlorenz/dog/tree/master/examples/blog-site) examples in order to get an idea on how to
-use dog.
+### Blog Only
+
+Look at and play with [blog-only](https://github.com/thlorenz/dog/tree/master/examples/blog-only) to understand
+better how to manage your blog and/or preview posts.
+
+### Blog Site
+
+Look at [blog-site](https://github.com/thlorenz/dog/tree/master/examples/blog-site) in order to get an idea on how to
+use dog to provide your blog from a website.
+
