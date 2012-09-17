@@ -167,6 +167,8 @@ The dog provider assists you in serving your blog from a website.
 It offers a number of functions to that purpose. Althoug all of them are explained here, you most likely will only need
 the first four.
 
+All mentioned callbacks have this signature: `function (err, result) { ... }`.
+
 The below explanations assume that you required dog in your module via `var dog = require('dog');`.
 
 ### provideFrom
@@ -176,7 +178,113 @@ The below explanations assume that you required dog in your module via `var dog 
 Call this before using any of the other provider functions to tell the provider in which directory your blog lives
 (i.e., where the `blog.json` file is found).
 
+### concatentateStyles
 
+`dog.provider.concatenateStyles(callback)`
+
+Concatenates all styles from `assets/styles` is is configured to include (see [includeStyles](#includeStyles)) and calls
+back with the resulting css.
+
+### provideAll
+
+`dog.provider.provideAll(callback)`
+
+Gathers metadata of all posts that were published to your blog and attaches rendered html. Calls back with the result.
+
+**Example Result:**
+
+```json
+[ 
+  { name: 'my-first-post',
+     metadata: 
+      { created: Sun Sep 16 2012 11:54:37 GMT-0400 (EDT),
+        updated: Sun Sep 16 2012 16:42:37 GMT-0400 (EDT),
+        tags: ['tag1', tag2'],
+        name: 'my-first-post',
+        title: 'Getting started' },
+     html: { ... } 
+  },
+  { name: 'my-second-post',
+     metadata: 
+      { created: Sun Sep 17 2012 11:54:37 GMT-0400 (EDT),
+        updated: Sun Sep 17 2012 16:42:37 GMT-0400 (EDT),
+        tags: ['tag2', tag3'],
+        name: 'my-second-post',
+        title: 'Getting started again' },
+     html: { ... } 
+  }
+]
+```
+
+### provideUpdatedSince
+
+`dog.provider.provideUpdatedSince (when, callback)`
+
+Same as [provideAll](#provideAll) except only posts updated since `when`, which is a `Date` object, are included.
+
+### copyImages
+
+`dog.copyImages(fullPath, callback)`
+
+Copies all images found inside your blog (i.e., in `assets/images`) to the `fullPath` given.
+
+Calls back with an error if it failed or null if successfull.
+
+### getAllPosts
+
+`dog.provider.getAllPosts(callback)`
+
+Calls back with a string array containing names of all posts that were published to your blog.
+
+### getAllTags
+
+`dog.provider.getAllTags`
+
+Calls back with a string array containing all tags found in any of the posts that were published to your blog.
+
+### getPostMetadata
+
+`dog.provider.getPostMetadata(postName, callback)`
+
+Calls back with metadata of the given post.
+
+**Example Result:**
+
+```json
+{ created: Sun Sep 16 2012 11:54:37 GMT-0400 (EDT),
+  updated: Sun Sep 16 2012 16:42:37 GMT-0400 (EDT),
+  tags: [ 'dog', 'tutorial', 'nodejs' ],
+  name: 'dog-tutorial',
+  title: 'Getting started with dog' }
+```
+
+### getPostHtml
+
+`dog.provider.getPostHtml(postName, callback)`
+
+Calls back with the rendered html of the given post.
+
+### blog directories
+
+Various functions return full paths to important directories inside your blog. 
+
+These are:
+
+`dog.provider.getAssetsDir()`
+`dog.provider.getImagesDir()`
+`dog.provider.getStylesDir()`
+
+### getStylesFiles
+
+`dog.provider.getStylesFiles(callback)`
+
+Calls back with a list of full paths of all styles included in your blog.
+
+### printSummary
+
+`dog.provider.printSummary`
+
+Prints out a summary of your blog, including importand directories and published posts.
 
 ## Examples
 
