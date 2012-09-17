@@ -1,3 +1,6 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+
 # dog [![Build Status](https://secure.travis-ci.org/thlorenz/dog.png)](http://travis-ci.org/thlorenz/dog) 
 
 ## D *eveloper bl* OG
@@ -10,6 +13,40 @@
   - publishes via simple command line
 
 ![cat](https://github.com/thlorenz/dog/raw/master/assets/cat.png)
+
+- [Installing Dog](#installing-dog)
+- [Dog Command Line](#dog-command-line)
+  - [scaffold](#scaffold)
+  - [preview](#preview)
+  - [publish](#publish)
+  - [unpublish](#unpublish)
+  - [summary](#summary)
+  - [help](#help)
+  - [includeStyles](#includestyles)
+  - [action aliases](#action-aliases)
+- [Dog Metatags](#dog-metatags)
+  - [Including Post Title](#including-post-title)
+  - [Including Post Creation Date](#including-post-creation-date)
+  - [Including Post Update Date](#including-post-update-date)
+  - [Including Post Tags](#including-post-tags)
+  - [Including external Code Snippets](#including-external-code-snippets)
+- [Dog Provider](#dog-provider)
+  - [provideFrom](#providefrom)
+  - [concatentateStyles](#concatentatestyles)
+  - [provideAll](#provideall)
+  - [provideUpdatedSince](#provideupdatedsince)
+  - [copyImages](#copyimages)
+  - [getAllPosts](#getallposts)
+  - [getAllTags](#getalltags)
+  - [getPostMetadata](#getpostmetadata)
+  - [getPostHtml](#getposthtml)
+  - [blog directories](#blog-directories)
+  - [getStylesFiles](#getstylesfiles)
+  - [printSummary](#printsummary)
+- [Styling](#styling)
+- [Examples](#examples)
+  - [Blog Only](#blog-only)
+  - [Blog Site](#blog-site)
 
 ## Installing Dog
 
@@ -154,7 +191,7 @@ Additionally a `.tags` css selector is applied to it to allow proper styling.
 
 Will be replaced with the content of the file `name` found inside the `snippets` directory inside the posts directory.
 
-#### Example:
+**Example:**
 
 Assume we have a post named mypost. Inside `./mypost` we created a `snippets` folder into which we copied `myscript.js`.
 
