@@ -142,8 +142,9 @@ dog understands unambiguous short forms of action names in a similar way that no
 Therefore `dog pub post` gets expanded to `dog publish post` while `dog s` is not sufficient since it could mean `dog
 summary` or `dog scaffold`.
 
-As a less useful option:
-`dog --action publish --post post --title "My Post"` is equivalent to `dog publish post --title "My Post"`.
+As a less useful option: `dog --action publish --post post --title "My Post"` 
+
+is equivalent to: `dog publish post --title "My Post"`.
 
 ## Dog Metatags
 
