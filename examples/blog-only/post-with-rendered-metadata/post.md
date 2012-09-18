@@ -14,7 +14,7 @@ Tags: {{ meta: tags }}
 
 ## Should contain
 
-Here is what should was filled in from [post.json](./post.json)
+Here is what was filled in from [post.json](./post.json)
 
 - rendered title 
 - rendered created date
