@@ -45,6 +45,7 @@
 - [Examples](#examples)
   - [Blog Only](#blog-only)
   - [Blog Site](#blog-site)
+  - [Tutorial](#tutorial)
 
 ## Installing Dog
 
@@ -351,3 +352,7 @@ better how to manage your blog and/or preview posts.
 Look at [blog-site](https://github.com/thlorenz/dog/tree/master/examples/blog-site) in order to get an idea on how to
 use dog to provide your blog from a website.
 
+### Tutorial
+
+You can follow along with the [getting started tutorial](http://thlorenz.com/#/blog/post/dog-tutorial) to get a better
+idea about how to use dog.

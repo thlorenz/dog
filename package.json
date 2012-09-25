@@ -23,7 +23,7 @@
     "code",
     "snippets"
   ],
-  "author": "Thorsten Lorenz <thlorenz@gmx.de> (http://thorstenlorenz/wordpress.com)",
+  "author": "Thorsten Lorenz <thlorenz@gmx.de> (http://thlorenz.com)",
   "license": "BSD",
   "dependencies": {
     "npmlog": "0.0.2",
