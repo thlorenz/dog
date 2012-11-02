@@ -35,7 +35,7 @@
     "dateformat": "~1.0.0"
   },
   "devDependencies": {
-    "proxyquire": "~0.3.2",
+    "proxyquire": "~0.3.4",
     "tap": "~0.3.1"
   }
 }
