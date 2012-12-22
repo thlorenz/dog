@@ -26,7 +26,7 @@ var proxyquire = require('proxyquire')
   , utlStub = {
       now: function () { return now; }
     }
-  , sut = proxyquire.resolve('../lib/publisher', __dirname, { npmlog: require('./fakes/npmlog'), './utl': utlStub })
+  , sut = proxyquire('../lib/publisher', { npmlog: require('./fakes/npmlog'), './utl': utlStub })
 
 function readJsons() {
   function jsonIfExists(file) {
