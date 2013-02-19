@@ -51,18 +51,6 @@
 }
 
 /* Customizations for peacock highlighted sections */
-.blog-post .highlight {
-  margin: 20px 5px 20px 20px;
-}
-
-.blog-post .highlight {
-  margin-left: -30px;
-}
-
-.blog-post .highlight table {
-  margin-left: 0;
-}
-
 .blog-post .highlight .lineno {
   color: #afafaf;
   padding-right: 8px;
