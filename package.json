@@ -32,10 +32,11 @@
     "optimist": "~0.3.4",
     "runnel": "~0.0.4",
     "ap": "~0.1.0",
-    "dateformat": "~1.0.0"
+    "dateformat": "~1.0.0",
+    "peacock": "~0.2.0"
   },
   "devDependencies": {
-    "tap": "~0.3.1",
-    "proxyquire": "~0.4.0"
+    "proxyquire": "~0.4.0",
+    "tap": "~0.4.0"
   }
 }
