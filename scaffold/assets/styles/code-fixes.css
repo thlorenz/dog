@@ -9,6 +9,19 @@
   padding-right: 8px;
 }
 
+.lang-text .syntaxhighlighter .gutter,
+.lang-shell .syntaxhighlighter .gutter,
+.lang-sh .syntaxhighlighter .gutter {
+  display: none;
+}
+
+.lang-text .syntaxhighlighter .code,
+.lang-shell .syntaxhighlighter .code,
+.lang-sh .syntaxhighlighter .code {
+  padding-left: 20px;
+}
+
+
 .syntaxhighlighter {
   width: 735px;
   border-radius: 8px;

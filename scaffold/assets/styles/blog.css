@@ -1,19 +1,21 @@
 .blog-post {
   background: white;
   padding: 20px;
-  margin: 5px;
   border-radius: 5px;
   font-size: 16px;
-  line-height: 26px;
+  line-height: 24px;
   font-family: Arial, Tahoma, Helvetica, FreeSans, sans-serif;
 }
 
-.blog-post p > code{
-  background: #F0F8F7;
-  padding: 2px 5px 2px 5px;
+.blog-post ul li code,
+.blog-post p > code {
+  padding: 1px 3px 1px 3px;
+  background-color: #E5F3F2;
+  border: 1px solid #CCD5D4;
+  border-radius: 3px;
   position: relative;
   font-family: monospace;
-  border: 1px solid #C4DBDA;
+  bottom: 1px;
 }
 
 /* block quotes */
@@ -83,11 +85,7 @@
 }
 
 .blog-post hr {
-  margin-left: -20px;
-  margin-right: -20px;
   border-style: solid;
-  border-color: white;
-  border-width: 10px;
 }
 
 .blog-post img {
@@ -115,13 +113,8 @@
   color: rgba(9, 8, 8, 0.77);
 }
 
-.blog-post ul, .blog-post ol, .blog-post dl {
-  margin: 0 0 0 0px;
-}
-
 .blog-post ul {
-    list-style-type: disc;
-
+  list-style-type: disc;
 }
 
 .blog-post ul, .blog-post ol, .blog-post dl {
