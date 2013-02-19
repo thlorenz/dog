@@ -1,31 +1,30 @@
 .blog-post {
   background: white;
   padding: 20px;
+  margin: 5px;
   border-radius: 5px;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 26px;
   font-family: Arial, Tahoma, Helvetica, FreeSans, sans-serif;
 }
 
-.blog-post ul li code,
-.blog-post p > code {
-  padding: 1px 3px 1px 3px;
-  background-color: #E5F3F2;
-  border: 1px solid #CCD5D4;
-  border-radius: 3px;
+.blog-post p > code{
+  background: #F0F8F7;
+  padding: 2px 5px 2px 5px;
   position: relative;
   font-family: monospace;
-  bottom: 1px;
+  border: 1px solid #C4DBDA;
 }
 
 /* block quotes */
 .blog-post pre {
   font-style: italic;
   padding-left: 40px;
-  margin-right: -15px;
+  margin: 0 -15px 0 0;
 }
 
 /* Don't apply above block quote style to code samples */
+.blog-post .highlight,
 .blog-post pre .syntaxhighlighter {
 
   -moz-box-shadow: 2px 2px 5px #888;
@@ -41,10 +40,32 @@
   overflow: auto;
   width: 100%;
   background-color: #E5F3F2 !important;
+}
 
+.blog-post .highlight pre, 
+.blog-post pre .syntaxhighlighter {
   font-style: normal;
   font-size: 14px;
   line-height: 20px;
+  padding-left: 0;
+}
+
+/* Customizations for peacock highlighted sections */
+.blog-post .highlight {
+  margin: 20px 5px 20px 20px;
+}
+
+.blog-post .highlight {
+  margin-left: -30px;
+}
+
+.blog-post .highlight table {
+  margin-left: 0;
+}
+
+.blog-post .highlight .lineno {
+  color: #afafaf;
+  padding-right: 8px;
 }
 
 .blog-post h1 {
@@ -85,7 +106,11 @@
 }
 
 .blog-post hr {
+  margin-left: -20px;
+  margin-right: -20px;
   border-style: solid;
+  border-color: white;
+  border-width: 10px;
 }
 
 .blog-post img {
@@ -113,8 +138,13 @@
   color: rgba(9, 8, 8, 0.77);
 }
 
+.blog-post ul, .blog-post ol, .blog-post dl {
+  margin: 0 0 0 0px;
+}
+
 .blog-post ul {
-  list-style-type: disc;
+    list-style-type: disc;
+
 }
 
 .blog-post ul, .blog-post ol, .blog-post dl {

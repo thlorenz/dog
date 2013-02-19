@@ -20,10 +20,11 @@
 .blog-post pre {
   font-style: italic;
   padding-left: 40px;
-  margin-right: -15px;
+  margin: 0 -15px 0 0;
 }
 
 /* Don't apply above block quote style to code samples */
+.blog-post .highlight,
 .blog-post pre .syntaxhighlighter {
 
   -moz-box-shadow: 2px 2px 5px #888;
@@ -39,10 +40,32 @@
   overflow: auto;
   width: 100%;
   background-color: #E5F3F2 !important;
+}
 
+.blog-post .highlight pre, 
+.blog-post pre .syntaxhighlighter {
   font-style: normal;
   font-size: 14px;
   line-height: 20px;
+  padding-left: 0;
+}
+
+/* Customizations for peacock highlighted sections */
+.blog-post .highlight {
+  margin: 20px 5px 20px 20px;
+}
+
+.blog-post .highlight {
+  margin-left: -30px;
+}
+
+.blog-post .highlight table {
+  margin-left: 0;
+}
+
+.blog-post .highlight .lineno {
+  color: #afafaf;
+  padding-right: 8px;
 }
 
 .blog-post h1 {
