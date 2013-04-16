@@ -51,11 +51,21 @@ test('when rendering postuno that has an inlined and an external snippet', funct
       t.end()
     })
 
+    t.test('# renders second scriptie talkie', function (t) {
+      var activateScriptieTalkie = [
+            '<script type="text/javascript" src="https://github.com/thlorenz/scriptie-talkie-embed/raw/gh-pages/gh-pages/bundle.js"></script>'
+          , '<script type="text/javascript">'
+          , '  window.scriptieTalkieEmbed();'
+          , '</script>'
+        ].join('\n');
+      t.ok(~html.indexOf(activateScriptieTalkie), 'includes scriptie talkie activation script at the very bottom');
+      t.end()
+    })
+
     t.test('# wraps it in blog-post article', function (t) {
       t.ok(~html.indexOf('<article class="blog-post"'))
       t.end()
     })
-
     t.end()
   })
 })
