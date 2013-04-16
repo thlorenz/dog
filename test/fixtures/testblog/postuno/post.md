@@ -6,7 +6,7 @@
   var some = 'javascript';
 ```
 
-```js st
+```jsst
   var a = 'rendered with scriptie-talkie';
 ```
 
@@ -17,8 +17,10 @@
 ## Snippet pulled in
 {{ snippet: simple.js }}
 
-```js st
+```jsst
   var b = 'also';
   var c = 'rendered with scriptie talkie';
 ```
 
+## Scriptie Talkie Snippet pulled in
+{{ scriptie: scriptie.js }}
