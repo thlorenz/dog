@@ -1,9 +1,13 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+
 # dog [![Build Status](https://secure.travis-ci.org/thlorenz/dog.png)](http://travis-ci.org/thlorenz/dog) 
 
 ## D *eveloper bl* OGging Engine
 
   - markdown based
   - code snippet support
+  - [embedded scriptie-talkie](http://thlorenz.github.io/scriptie-talkie-embed/) support
   - syntax highlighting
   - posts stored on file system 
   - provides html and default styles
@@ -11,7 +15,6 @@
 
 ![cat](https://github.com/thlorenz/dog/raw/master/assets/cat.png)
 
-**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
 - [Installing Dog](#installing-dog)
 - [Dog Command Line](#dog-command-line)
   - [scaffold](#scaffold)
@@ -22,6 +25,9 @@
   - [help](#help)
   - [includeStyles](#includestyles)
   - [action aliases](#action-aliases)
+- [Inlining code samples](#inlining-code-samples)
+  - [Syntax highlighted inlines](#syntax-highlighted-inlines)
+  - [Scriptie-Talkie inlines](#scriptie-talkie-inlines)
 - [Dog Metatags](#dog-metatags)
   - [Including Post Title](#including-post-title)
   - [Including Post Creation Date](#including-post-creation-date)
@@ -147,6 +153,39 @@ As a less useful option: `dog --action publish --post post --title "My Post"`
 
 is equivalent to: `dog publish post --title "My Post"`.
 
+## Inlining code samples
+
+### Syntax highlighted inlines
+
+Dog supports syntax highlighted inlined code samples the same way that [github flavored
+markdown](https://help.github.com/articles/github-flavored-markdown) does.
+
+**Example:**
+Source (omit leading `-`)
+
+```text
+-```js
+var a = 3;
+-```
+```
+
+Result:
+
+```js
+var a = 3;
+```
+
+### Scriptie-Talkie inlines
+
+If you prefer to show interactive [scriptie-talkie code samples](http://thlorenz.github.io/scriptie-talkie-embed/), please specify `'```jsst'` (thing **js**
+**s**criptie **t**alkie) as the language, i.e. (again omit leading `-`)
+
+```text
+-```jsst
+var a = 3;
+-```
+```
+
 ## Dog Metatags
 
 Aside from the usual markdown directives dog supports a few more tags enclosed by `{{ }}` in order to include metadata
@@ -191,11 +230,17 @@ Additionally a `.tags` css selector is applied to it to allow proper styling.
 
 Will be replaced with the content of the file `name` found inside the `snippets` directory inside the posts directory.
 
+`{{ scriptie: name }}`
+
+Will be replaced with the content of the file `name` found inside the `snippets` directory and rendered via an [embedded
+scriptie-talkie](http://thlorenz.github.io/scriptie-talkie-embed/).
+
 **Example:**
 
 Assume we have a post named mypost. Inside `./mypost` we created a `snippets` folder into which we copied `myscript.js`.
 
-We can now include that in `./mypost/post.md` via `{{ snippet: myscript.js }}`.
+We can now include that in `./mypost/post.md` via `{{ snippet: myscript.js }}` or as a scriptie-talkie via `{{ scriptie:
+myscript.js }}.
 
 ## Dog Provider
 
