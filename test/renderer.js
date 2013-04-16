@@ -36,6 +36,21 @@ test('when rendering postuno that has an inlined and an external snippet', funct
       t.end()
     })
 
+    t.test('# renders first scriptie talkie', function (t) {
+      t.ok(~html.indexOf('<textarea class="scriptie-talkie">'), 'textarea tag with class')
+      t.ok(~html.indexOf('  var a = \'rendered with scriptie-talkie\';'), 'code line')
+      t.ok(~html.indexOf('</textarea>'), 'closing text area')
+      t.end()
+    })
+
+    t.test('# renders second scriptie talkie', function (t) {
+      t.ok(~html.indexOf('<textarea class="scriptie-talkie">'), 'textarea tag with class')
+      t.ok(~html.indexOf('  var b = \'also\';'), 'first code line')
+      t.ok(~html.indexOf('  var c = \'rendered with scriptie talkie\';'), 'second code line')
+      t.ok(~html.indexOf('</textarea>'), 'closing text area')
+      t.end()
+    })
+
     t.test('# wraps it in blog-post article', function (t) {
       t.ok(~html.indexOf('<article class="blog-post"'))
       t.end()
@@ -43,7 +58,6 @@ test('when rendering postuno that has an inlined and an external snippet', funct
 
     t.end()
   })
-
 })
 
 
