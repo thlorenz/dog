@@ -177,7 +177,7 @@ var a = 3;
 
 ### Scriptie-Talkie inlines
 
-If you prefer to show interactive [scriptie-talkie code samples](http://thlorenz.github.io/scriptie-talkie-embed/), please specify `'```jsst'` (thing **js**
+If you prefer to show interactive [scriptie-talkie code samples](http://thlorenz.github.io/scriptie-talkie-embed/), please specify `'jsst'` (think **js**
 **s**criptie **t**alkie) as the language, i.e. (again omit leading `-`)
 
 ```text
