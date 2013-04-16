@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "proxyquire": "~0.4.0",
-    "tap": "~0.4.0"
+    "tap": "~0.4.1"
   }
 }
