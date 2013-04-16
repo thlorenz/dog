@@ -354,5 +354,5 @@ use dog to provide your blog from a website.
 
 ### Tutorial
 
-You can follow along with the [getting started tutorial](http://thlorenz.com/#/blog/post/dog-tutorial) to get a better
+You can follow along with the [getting started tutorial](http://thlorenz.com/blog/dog-tutorial) to get a better
 idea about how to use dog.
