@@ -401,3 +401,7 @@ use dog to provide your blog from a website.
 
 You can follow along with the [getting started tutorial](http://thlorenz.com/blog/dog-tutorial) to get a better
 idea about how to use dog.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/thlorenz/dog/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
