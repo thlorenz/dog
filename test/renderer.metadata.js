@@ -33,7 +33,7 @@ test('when rendering a post that has meta tags for title, created, updated and t
 
     t.test('# renders title', function (t) {
       t.plan(1)
-      t.ok(~html.indexOf('<h1>Post Meta Test</h1>'))
+      t.ok(~html.indexOf('<h1 id="-meta-title-">Post Meta Test</h1>'))
       t.end()
     })
 

@@ -10,19 +10,19 @@ test('when rendering postuno that has an inlined and an external snippet', funct
 
   dog.renderer.render(postunoDir, function (err, html) {
     t.test('\n# renders main header', function (t) {
-      t.ok(~html.indexOf('<h1>Blog Uno</h1>'), 'Blog Uno')
+      t.ok(~html.indexOf('<h1 id="blog-uno">Blog Uno</h1>'), 'Blog Uno')
       t.end()
     })
 
     t.test('\n# renders inlined javascript snippet with peacock', function (t) {
-      t.ok(~html.indexOf('<h2>Inlined snippet</h2>'), 'header')
+      t.ok(~html.indexOf('<h2 id="inlined-snippet">Inlined snippet</h2>'), 'header')
       t.ok(~html.indexOf('<pre><code class="lang-javascript"><div class="highlight"><pre>'), 'pre and div with highlight class')
       t.ok(~html.indexOf('<span class="k">var</span> some <span class="o">=</span> <span class="s">\'javascript\'</span><span class="p">;</span>'), 'snippet')
       t.end()
     })
 
     t.test('\n# renders inlined python snippet with node-syntaxhighlighter', function (t) {
-      t.ok(~html.indexOf('<h2>Inlined snippet</h2>'), 'header')
+      t.ok(~html.indexOf('<h2 id="inlined-snippet">Inlined snippet</h2>'), 'header')
       t.ok(~html.indexOf('<pre><code class="lang-python">'), 'pre and div with python language')
       t.ok(~html.indexOf('class="syntaxhighlighter'), 'syntaxhighlighter class')
       t.ok(~html.indexOf('<code class="plain">some </code><code class="keyword">=</code> <code class="string">\'python\'</code><code class="plain">;</code>'), 'snippet')
@@ -30,7 +30,7 @@ test('when rendering postuno that has an inlined and an external snippet', funct
     })
 
     t.test('\n# renders external snippet javascript snippet with peacock', function (t) {
-      t.ok(~html.indexOf('<h2>Snippet pulled in</h2>'), 'header')
+      t.ok(~html.indexOf('<h2 id="snippet-pulled-in">Snippet pulled in</h2>'), 'header')
       t.ok(~html.indexOf('<pre><code class="lang-js"><div class="highlight"><pre>'), 'pre and div with highlight class')
       t.ok(~html.indexOf('<span class="k">var</span> simple <span class="o">=</span> <span class="f">1</span><span class="p">;</span>'), 'snippet')
       t.end()
@@ -53,17 +53,6 @@ test('when rendering postuno that has an inlined and an external snippet', funct
 
     t.test('\n# renders external scriptie talkie', function (t) {
       t.ok(~html.indexOf('var a = \'external scriptie-talkie\';'), 'code line')
-      t.end()
-    })
-
-    t.test('\n# activates scriptie talkie', function (t) {
-      var activateScriptieTalkie = [
-            '<script type="text/javascript" src="https://github.com/thlorenz/scriptie-talkie-embed/raw/gh-pages/gh-pages/bundle.js"></script>'
-          , '<script type="text/javascript">'
-          , '  window.scriptieTalkieEmbed();'
-          , '</script>'
-        ].join('\n');
-      t.ok(~html.indexOf(activateScriptieTalkie), 'includes scriptie talkie activation script at the very bottom');
       t.end()
     })
 

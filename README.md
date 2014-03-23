@@ -242,6 +242,15 @@ Assume we have a post named mypost. Inside `./mypost` we created a `snippets` fo
 We can now include that in `./mypost/post.md` via `{{ snippet: myscript.js }}` or as a scriptie-talkie via `{{ scriptie:
 myscript.js }}.
 
+Remember to require and init scriptie-talkie:
+
+```js
+var domready = require('domready');
+var embed = require('scriptie-talkie-embed');
+
+domready(embed);
+```
+
 ## Dog Provider
 
 The dog provider assists you in serving your blog from a website.
