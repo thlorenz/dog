@@ -26,17 +26,17 @@
   "author": "Thorsten Lorenz <thlorenz@gmx.de> (http://thlorenz.com)",
   "license": "BSD",
   "dependencies": {
-    "npmlog": "0.0.2",
-    "marked": "~0.2.5",
-    "node-syntaxhighlighter": "~0.8.1",
-    "optimist": "~0.3.4",
-    "runnel": "~0.0.4",
     "ap": "~0.1.0",
     "dateformat": "~1.0.0",
-    "peacock": "~0.2.0"
+    "marked": "~0.2.10",
+    "node-syntaxhighlighter": "~0.8.1",
+    "npmlog": "0.0.2",
+    "optimist": "~0.3.7",
+    "peacock": "~0.2.0",
+    "runnel": "0.0.5"
   },
   "devDependencies": {
-    "proxyquire": "~0.4.0",
-    "tap": "~0.4.1"
+    "proxyquire": "~0.4.1",
+    "tap": "~0.4.13"
   }
 }
